@@ -1,9 +1,12 @@
-import javax.swing.JOptionPane;
+import java.util.List;
+
+import javax.swing.JOptionPane;	
 
 public class pica {
-	String type;
-	int size;
-	double cena;
+	private List<String> toppings;
+	private String type;
+	private int size;
+	private double cena;
 	
 	  public pica(String type, int size, double cena) {
 	        this.type = type;
@@ -14,6 +17,7 @@ public class pica {
 	  public void showInfo() {
 	        String message = "Picas tips: " + type +
 	                         "\nLielums: " + size + " см" +
+	                         "\nPapildinājumi: " + toppings +
 	                         "\nCena: " + cena + " EUR";
 	        
 	        JOptionPane.showMessageDialog(null, message, "Informācija par picu", JOptionPane.INFORMATION_MESSAGE);

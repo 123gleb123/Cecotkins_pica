@@ -3,7 +3,7 @@ import javax.swing.JOptionPane;
 public class klients {
 	private String vards,uzvards,adress;
 	private int telnumurs;
-	public klients(String name ,String uzvards,String adress,int telnumurs) {
+	public klients(String vards ,String uzvards,String adress,int telnumurs) {
         this.vards = vards;
         this.uzvards = uzvards;
         this.adress = adress;
