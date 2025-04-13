@@ -12,7 +12,9 @@ public class klients {
         this.telnumurs = telnumurs;
     }
 	public String getVards() { return vards; }
+	public void setVards(String vards) {this.vards = vards;}
 	public String getUzvards() { return uzvards; }
+	public void setUzvards(String uzvards) {this.uzvards = uzvards;}
 	public String getParole() { return parole; }
 	public void setPassworld(String parole) {this.parole = parole;}
 	public String getUsername() { return username; }

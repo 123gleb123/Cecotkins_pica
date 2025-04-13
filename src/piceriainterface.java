@@ -2,39 +2,31 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class piceriainterface extends JFrame {
 	
-	private static ArrayList<klients> array = new ArrayList<klients>();
-	
-	public boolean isLogin(String username, String parole) {
-		boolean flag = true;
-		
-		for(klients ui: array) {
-			if(ui.getUsername().equals(username)&&
-					ui.getParole().equals(parole)){
-				flag=true;
-				break;
-			}
-		}
-		return flag;
-	}
-	
-	public void regist(klients klients) {
-		array.add(klients);
-	}
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private CardLayout cardLayout;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
 
 	/**
 	 * Launch the application.
@@ -74,14 +66,14 @@ public class piceriainterface extends JFrame {
 		panel.setLayout(null);
 
 		JLabel lblNewLabel_6 = new JLabel("New label");
-		lblNewLabel_6.setIcon(new ImageIcon("C:\\Users\\2PT\\Desktop\\java 2PT\\Chechotkins_pica\\images\\logo (1).png"));
-		lblNewLabel_6.setBounds(401, 43, 300, 300);
+		lblNewLabel_6.setIcon(new ImageIcon("C:\\Users\\gchec\\Desktop\\JAVa\\Chechotkin_pica\\images\\logo (1).png"));
+		lblNewLabel_6.setBounds(411, 43, 300, 300);
 		panel.add(lblNewLabel_6);
 
 		JLabel lblNewLabel_7 = new JLabel("Skatīt izvēlni");
 		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_7.setBackground(new Color(255, 255, 255));
-		lblNewLabel_7.setIcon(new ImageIcon("C:\\Users\\2PT\\Desktop\\java 2PT\\Chechotkins_pica\\images\\pizza.jpg"));
+		lblNewLabel_7.setIcon(new ImageIcon("C:\\Users\\gchec\\Desktop\\JAVa\\Chechotkin_pica\\images\\pizza.jpg"));
 		lblNewLabel_7.setBounds(358, 354, 150, 150);
 		panel.add(lblNewLabel_7);
 
@@ -95,14 +87,14 @@ public class piceriainterface extends JFrame {
 		});
 		
 		JLabel lblNewLabel_8 = new JLabel("New label");
-		lblNewLabel_8.setIcon(new ImageIcon("C:\\Users\\2PT\\Desktop\\java 2PT\\Chechotkins_pica\\images\\drinks.jpg"));
-		lblNewLabel_8.setBounds(576, 354, 150, 150);
+		lblNewLabel_8.setIcon(new ImageIcon("C:\\Users\\gchec\\Desktop\\JAVa\\Chechotkin_pica\\images\\drinks.jpg"));
+		lblNewLabel_8.setBounds(609, 354, 150, 150);
 		panel.add(lblNewLabel_8);
 		
 		JButton btnNewButton_3_1 = new JButton("Skatīt izvēlni");
 		btnNewButton_3_1.setFont(new Font("Arial", Font.BOLD, 12));
 		btnNewButton_3_1.setBackground(Color.WHITE);
-		btnNewButton_3_1.setBounds(592, 514, 119, 23);
+		btnNewButton_3_1.setBounds(625, 514, 119, 23);
 		panel.add(btnNewButton_3_1);
 		
 		JButton btnNewButton_5 = new JButton("Jusu konts\r\n");
@@ -276,6 +268,7 @@ public class piceriainterface extends JFrame {
 		panel_1.add(lblNewLabel_4_2_1);
 		
 		JButton btnNewButton_4 = new JButton("Atpakaļ");
+		btnNewButton_4.setFont(new Font("Arial", Font.BOLD, 12));
 		btnNewButton_4.setBackground(new Color(255, 255, 255));
 		btnNewButton_4.setBounds(0, 0, 89, 23);
 		panel_1.add(btnNewButton_4);
@@ -300,7 +293,159 @@ public class piceriainterface extends JFrame {
 		contentPane.add(panel_2, "Login");
 		panel_2.setLayout(null);
 		
+		JButton btnNewButton_7 = new JButton("Atpakaļ");
+		btnNewButton_7.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_7.setBackground(Color.WHITE);
+		btnNewButton_7.setBounds(0, 0, 89, 23);
+		panel_2.add(btnNewButton_7);
+		btnNewButton_7.addActionListener(e -> {
+			cardLayout.show(contentPane, "menu");
+		});
+		
+		textField = new JTextField();
+		textField.setFont(new Font("Arial", Font.BOLD, 12));
+		textField.setForeground(new Color(0, 0, 0));
+		textField.setBounds(478, 232, 166, 32);
+		panel_2.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Arial", Font.PLAIN, 12));
+		textField_1.setBounds(478, 300, 166, 32);
+		panel_2.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JButton btnNewButton_8 = new JButton("Reģistrēties");
+		btnNewButton_8.setBackground(new Color(255, 255, 255));
+		btnNewButton_8.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_8.setBounds(455, 343, 107, 23);
+		panel_2.add(btnNewButton_8);
+		btnNewButton_8.addActionListener(e -> {
+			cardLayout.show(contentPane, "Regestracija");
+		});
+		
+		JButton btnNewButton_9 = new JButton("Pieteikties");
+		btnNewButton_9.setBackground(new Color(255, 255, 255));
+		btnNewButton_9.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_9.setBounds(563, 343, 107, 23);
+		panel_2.add(btnNewButton_9);
+		
+		JLabel lblNewLabel_9 = new JLabel("Pieteikties");
+		lblNewLabel_9.setFont(new Font("Arial", Font.BOLD, 30));
+		lblNewLabel_9.setBounds(484, 141, 154, 65);
+		panel_2.add(lblNewLabel_9);
+		
+		JLabel lblNewLabel_10 = new JLabel("Lietotājvārds");
+		lblNewLabel_10.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_10.setBounds(524, 207, 74, 14);
+		panel_2.add(lblNewLabel_10);
+		
+		JLabel lblNewLabel_10_1 = new JLabel("Parole");
+		lblNewLabel_10_1.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_10_1.setBounds(543, 275, 37, 14);
+		panel_2.add(lblNewLabel_10_1);
+		
+		JPanel panel_3 = new JPanel();
+		contentPane.add(panel_3, "Regestracija");
+		panel_3.setLayout(null);
+		
+		textField_2 = new JTextField();
+		textField_2.setForeground(Color.BLACK);
+		textField_2.setFont(new Font("Arial", Font.BOLD, 12));
+		textField_2.setColumns(10);
+		textField_2.setBounds(478, 348, 166, 32);
+		panel_3.add(textField_2);
+		
+		textField_3 = new JTextField();
+		textField_3.setFont(new Font("Arial", Font.PLAIN, 12));
+		textField_3.setColumns(10);
+		textField_3.setBounds(478, 416, 166, 32);
+		panel_3.add(textField_3);
+		
+		klientsloginreg klientsloginreg = new klientsloginreg();
+		
+		JButton btnNewButton_8_1 = new JButton("Reģistrēties");
+		btnNewButton_8_1.addActionListener(e -> {
+			 String vards = textField_4.getText();
+			 String uzvards = textField_5.getText();
+			 String username = textField_2.getText();
+			 String parole = textField_3.getText();
 
+			    if (username.isEmpty() || parole.isEmpty()) {
+			        JOptionPane.showMessageDialog(panel_3, "Lietotājvārds un parole ir obligāti!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+			        return;
+			    }
+			    
+			    boolean registered = klientsloginreg.registerUser(username, parole, vards, uzvards);
+				
+				 if (registered) {
+				        JOptionPane.showMessageDialog(panel_3,
+				            "Reģistrācija veiksmīga!\nLietotājs: " + username,
+				            "Apstiprinājums",
+				            JOptionPane.INFORMATION_MESSAGE);
+				    } else {
+				        JOptionPane.showMessageDialog(panel_3,
+				            "Lietotājvārds jau eksistē. Lūdzu, mēģiniet vēlreiz.",
+				            "Kļūda",
+				            JOptionPane.ERROR_MESSAGE);
+				    }
+				 if(registered) {
+					 cardLayout.show(contentPane, "Login");
+				 }
+			    
+		});
+		
+		btnNewButton_8_1.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_8_1.setBackground(Color.WHITE);
+		btnNewButton_8_1.setBounds(508, 459, 107, 23);
+		panel_3.add(btnNewButton_8_1);
+		
+		JLabel lblNewLabel_9_1 = new JLabel("Pieteikties");
+		lblNewLabel_9_1.setFont(new Font("Arial", Font.BOLD, 30));
+		lblNewLabel_9_1.setBounds(484, 113, 154, 65);
+		panel_3.add(lblNewLabel_9_1);
+		
+		JLabel lblNewLabel_10_2 = new JLabel("Lietotājvārds");
+		lblNewLabel_10_2.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_10_2.setBounds(524, 323, 74, 14);
+		panel_3.add(lblNewLabel_10_2);
+		
+		JLabel lblNewLabel_10_1_1 = new JLabel("Parole");
+		lblNewLabel_10_1_1.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_10_1_1.setBounds(543, 391, 37, 14);
+		panel_3.add(lblNewLabel_10_1_1);
+		
+		textField_4 = new JTextField();
+		textField_4.setForeground(Color.BLACK);
+		textField_4.setFont(new Font("Arial", Font.BOLD, 12));
+		textField_4.setColumns(10);
+		textField_4.setBounds(478, 203, 166, 32);
+		panel_3.add(textField_4);
+		
+		textField_5 = new JTextField();
+		textField_5.setFont(new Font("Arial", Font.PLAIN, 12));
+		textField_5.setColumns(10);
+		textField_5.setBounds(478, 271, 166, 32);
+		panel_3.add(textField_5);
+		
+		JLabel lblNewLabel_10_2_1 = new JLabel("Vards");
+		lblNewLabel_10_2_1.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_10_2_1.setBounds(540, 178, 43, 14);
+		panel_3.add(lblNewLabel_10_2_1);
+		
+		JLabel lblNewLabel_10_1_1_1 = new JLabel("Uzvards");
+		lblNewLabel_10_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_10_1_1_1.setBounds(536, 246, 51, 14);
+		panel_3.add(lblNewLabel_10_1_1_1);
+		
+		JButton btnNewButton_9_1 = new JButton("Atpakaļ");
+		btnNewButton_9_1.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_9_1.setBackground(Color.WHITE);
+		btnNewButton_9_1.setBounds(0, 0, 89, 23);
+		panel_3.add(btnNewButton_9_1);
+		btnNewButton_9_1.addActionListener(e -> {
+			cardLayout.show(contentPane, "Login");
+		});
 		
 	}
 }
