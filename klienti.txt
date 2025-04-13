@@ -1,3 +1,1 @@
-gshantop,26563902-g,Gleb,Chechotkin
-glebaspopuas,12345678,awdwa,awdwa
-abobus123,123,wdaw,adwa
+gshantop,26563902-g,gleb,Chechotkin

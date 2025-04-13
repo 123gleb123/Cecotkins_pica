@@ -67,14 +67,14 @@ public class piceriainterface extends JFrame {
 		panel.setLayout(null);
 
 		JLabel lblNewLabel_6 = new JLabel("New label");
-		lblNewLabel_6.setIcon(new ImageIcon("/images/logo (1).png"));
+		lblNewLabel_6.setIcon(new ImageIcon(getClass().getResource("/images/logo (1).png")));
 		lblNewLabel_6.setBounds(411, 43, 300, 300);
 		panel.add(lblNewLabel_6);
 
 		JLabel lblNewLabel_7 = new JLabel("Skatīt izvēlni");
 		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_7.setBackground(new Color(255, 255, 255));
-		lblNewLabel_7.setIcon(new ImageIcon("C:\\Users\\gchec\\Desktop\\JAVa\\Chechotkin_pica\\images\\pizza.jpg"));
+		lblNewLabel_7.setIcon(new ImageIcon(getClass().getResource("/images/pizza.jpg")));
 		lblNewLabel_7.setBounds(358, 354, 150, 150);
 		panel.add(lblNewLabel_7);
 
@@ -88,7 +88,7 @@ public class piceriainterface extends JFrame {
 		});
 		
 		JLabel lblNewLabel_8 = new JLabel("New label");
-		lblNewLabel_8.setIcon(new ImageIcon("C:\\Users\\gchec\\Desktop\\JAVa\\Chechotkin_pica\\images\\drinks.jpg"));
+		lblNewLabel_8.setIcon(new ImageIcon(getClass().getResource("/images/drinks.jpg")));
 		lblNewLabel_8.setBounds(609, 354, 150, 150);
 		panel.add(lblNewLabel_8);
 		
@@ -123,16 +123,21 @@ public class piceriainterface extends JFrame {
 		panel_1.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\2PT\\Desktop\\java 2PT\\Chechotkins_pica\\images\\margharita.png"));
+		lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/images/margharita.png")));
 		lblNewLabel.setBounds(40, 22, 150, 150);
 		panel_1.add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\2PT\\Desktop\\java 2PT\\Chechotkins_pica\\images\\bbq.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(getClass().getResource("/images/bbq.png")));
 		lblNewLabel_1.setBounds(40, 222, 150, 150);
 		panel_1.add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("Pievienot");
+		btnNewButton.addActionListener(e -> {
+			
+		});
+		
+
 		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.setBounds(237, 142, 89, 23);
@@ -155,7 +160,7 @@ public class piceriainterface extends JFrame {
 		panel_1.add(btnNewButton_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("New label");
-		lblNewLabel_1_1.setIcon(new ImageIcon("C:\\Users\\2PT\\Desktop\\java 2PT\\Chechotkins_pica\\images\\peperoni.png"));
+		lblNewLabel_1_1.setIcon(new ImageIcon(getClass().getResource("/images/peperoni.png")));
 		lblNewLabel_1_1.setBounds(40, 422, 150, 150);
 		panel_1.add(lblNewLabel_1_1);
 		
@@ -201,12 +206,12 @@ public class piceriainterface extends JFrame {
 		panel_1.add(lblNewLabel_3_2);
 		
 		JLabel lblNewLabel_5 = new JLabel("New label");
-		lblNewLabel_5.setIcon(new ImageIcon("C:\\Users\\2PT\\Desktop\\java 2PT\\Chechotkins_pica\\images\\quattro.png"));
+		lblNewLabel_5.setIcon(new ImageIcon(getClass().getResource("/images/quattro.png")));
 		lblNewLabel_5.setBounds(569, 22, 150, 150);
 		panel_1.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("New label");
-		lblNewLabel_1_2.setIcon(new ImageIcon("C:\\Users\\2PT\\Desktop\\java 2PT\\Chechotkins_pica\\images\\diavola.png"));
+		lblNewLabel_1_2.setIcon(new ImageIcon(getClass().getResource("/images/diavola.png")));
 		lblNewLabel_1_2.setBounds(569, 222, 150, 150);
 		panel_1.add(lblNewLabel_1_2);
 		
@@ -233,7 +238,7 @@ public class piceriainterface extends JFrame {
 		panel_1.add(btnNewButton_1_2);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("New label");
-		lblNewLabel_1_1_1.setIcon(new ImageIcon("C:\\Users\\2PT\\Desktop\\java 2PT\\Chechotkins_pica\\images\\mushroom.png"));
+		lblNewLabel_1_1_1.setIcon(new ImageIcon(getClass().getResource("/images/mushroom.png")));
 		lblNewLabel_1_1_1.setBounds(569, 422, 150, 150);
 		panel_1.add(lblNewLabel_1_1_1);
 		
