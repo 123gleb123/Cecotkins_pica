@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 public class piceriainterface extends JFrame {
 	
+	klientsloginreg klientsloginreg = new klientsloginreg();
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -66,7 +67,7 @@ public class piceriainterface extends JFrame {
 		panel.setLayout(null);
 
 		JLabel lblNewLabel_6 = new JLabel("New label");
-		lblNewLabel_6.setIcon(new ImageIcon("C:\\Users\\gchec\\Desktop\\JAVa\\Chechotkin_pica\\images\\logo (1).png"));
+		lblNewLabel_6.setIcon(new ImageIcon("/images/logo (1).png"));
 		lblNewLabel_6.setBounds(411, 43, 300, 300);
 		panel.add(lblNewLabel_6);
 
@@ -329,6 +330,30 @@ public class piceriainterface extends JFrame {
 		btnNewButton_9.setFont(new Font("Arial", Font.BOLD, 12));
 		btnNewButton_9.setBounds(563, 343, 107, 23);
 		panel_2.add(btnNewButton_9);
+		btnNewButton_9.addActionListener(e -> {
+		    String username = textField_2.getText();
+		    String parole = textField_3.getText();
+
+		    if (username.isEmpty() || parole.isEmpty()) {
+		        JOptionPane.showMessageDialog(panel_2, "Lūdzu, ievadiet gan lietotājvārdu, gan paroli.", "Kļūda", JOptionPane.ERROR_MESSAGE);
+		        return;
+		    }
+
+		    boolean success = klientsloginreg.loginUser(username, parole);
+
+		    if (success) {
+		        JOptionPane.showMessageDialog(panel_2,
+		            "Pieteikšanās veiksmīga!\nSveicināts, " + username + "!",
+		            "Laipni lūgts",
+		            JOptionPane.INFORMATION_MESSAGE);
+		         cardLayout.show(contentPane, "menu");
+		    } else {
+		        JOptionPane.showMessageDialog(panel_2,
+		            "Nepareizs lietotājvārds vai parole.",
+		            "Kļūda",
+		            JOptionPane.ERROR_MESSAGE);
+		    }
+		});
 		
 		JLabel lblNewLabel_9 = new JLabel("Pieteikties");
 		lblNewLabel_9.setFont(new Font("Arial", Font.BOLD, 30));
@@ -362,8 +387,6 @@ public class piceriainterface extends JFrame {
 		textField_3.setBounds(478, 416, 166, 32);
 		panel_3.add(textField_3);
 		
-		klientsloginreg klientsloginreg = new klientsloginreg();
-		
 		JButton btnNewButton_8_1 = new JButton("Reģistrēties");
 		btnNewButton_8_1.addActionListener(e -> {
 			 String vards = textField_4.getText();
@@ -383,15 +406,13 @@ public class piceriainterface extends JFrame {
 				            "Reģistrācija veiksmīga!\nLietotājs: " + username,
 				            "Apstiprinājums",
 				            JOptionPane.INFORMATION_MESSAGE);
+				        cardLayout.show(contentPane, "Login");
 				    } else {
 				        JOptionPane.showMessageDialog(panel_3,
 				            "Lietotājvārds jau eksistē. Lūdzu, mēģiniet vēlreiz.",
 				            "Kļūda",
 				            JOptionPane.ERROR_MESSAGE);
 				    }
-				 if(registered) {
-					 cardLayout.show(contentPane, "Login");
-				 }
 			    
 		});
 		
