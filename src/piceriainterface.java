@@ -2,9 +2,8 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,10 +13,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class piceriainterface extends JFrame {
 	
 	klientsloginreg klientsloginreg = new klientsloginreg();
+	List<pica> cart = new ArrayList<>();
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -32,9 +34,11 @@ public class piceriainterface extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	
+	
+	
+	
 	public static void main(String[] args) {
-		
-		ArrayList<pica> picaSaraksts = new ArrayList<>();
 	
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -134,8 +138,33 @@ public class piceriainterface extends JFrame {
 		
 		JButton btnNewButton = new JButton("Pievienot");
 		btnNewButton.addActionListener(e -> {
-			
+		    String[] sizes = {"30", "40", "50"};
+		    String sizeStr = (String) JOptionPane.showInputDialog(null, "Izvēlies izmēru:", "Picas lielums",
+		            JOptionPane.QUESTION_MESSAGE, null, sizes, sizes[0]);
+
+		    if (sizeStr == null) return;
+
+		    int size = Integer.parseInt(sizeStr);
+		    double cena = 7.99;
+		    switch (size) {
+		        case 40 -> cena += 2.0;
+		        case 50 -> cena += 4.0;
+		    }
+
+		    String[] additions = {"Papildus mocarella"};
+		    List<String> selectedToppings = new ArrayList<>();
+
+		    int add = JOptionPane.showConfirmDialog(null, "Vai pievienot papildus mocarellu?", "Papildinājums", JOptionPane.YES_NO_OPTION);
+		    if (add == JOptionPane.YES_OPTION) {
+		        selectedToppings.add("Papildus mocarella");
+		        cena += 1.0;
+		    }
+
+		    pica margarita = new pica("Margarita", size, cena, selectedToppings);
+		    cart.add(margarita);
+		    margarita.showInfo();
 		});
+
 		
 
 		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -154,6 +183,41 @@ public class piceriainterface extends JFrame {
 		panel_1.add(lblNewLabel_3_1);
 		
 		JButton btnNewButton_1 = new JButton("Pievienot");
+		btnNewButton_1.addActionListener(e -> {
+		    String[] sizes = {"30", "40", "50"};
+		    String sizeStr = (String) JOptionPane.showInputDialog(null, "Izvēlies izmēru:", "Picas lielums",
+		            JOptionPane.QUESTION_MESSAGE, null, sizes, sizes[0]);
+
+		    if (sizeStr == null) return;
+
+		    int size = Integer.parseInt(sizeStr);
+		    double cena = 9.99;
+		    switch (size) {
+		        case 40 -> cena += 2.0;
+		        case 50 -> cena += 4.0;
+		    }
+
+		    List<String> selectedToppings = new ArrayList<>();
+
+		    if (JOptionPane.showConfirmDialog(null, "Papildus vistas gaļa?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		        selectedToppings.add("Papildus vistas gaļa");
+		        cena += 1.0;
+		    }
+
+		    if (JOptionPane.showConfirmDialog(null, "Papildus mocarella?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		        selectedToppings.add("Papildus mocarella");
+		        cena += 1.0;
+		    }
+
+		    if (JOptionPane.showConfirmDialog(null, "Papildus sarkanais sīpols?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		        selectedToppings.add("Papildus sarkanais sīpols");
+		        cena += 0.5;
+		    }
+
+		    pica bbq = new pica("BBQ", size, cena, selectedToppings);
+		    cart.add(bbq);
+		    bbq.showInfo();
+		});
 		btnNewButton_1.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnNewButton_1.setBackground(Color.WHITE);
 		btnNewButton_1.setBounds(237, 342, 89, 23);

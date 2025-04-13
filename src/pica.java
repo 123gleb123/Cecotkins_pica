@@ -4,18 +4,19 @@ import javax.swing.JOptionPane;
 
 public class pica {
 	private List<String> toppings;
-	private String type;
+	private String tips;
 	private int size;
 	private double cena;
 	
-	  public pica(String type, int size, double cena) {
-	        this.type = type;
+	  public pica(String tips, int size, double cena, List<String> toppings) {
+	        this.tips = tips;
 	        this.size = size;
 	        this.cena = cena;
+	        this.toppings = toppings;
 	    }
 	  
 	  public void showInfo() {
-	        String message = "Picas tips: " + type +
+	        String message = "Picas tips: " + tips +
 	                         "\nLielums: " + size + " см" +
 	                         "\nPapildinājumi: " + toppings +
 	                         "\nCena: " + cena + " EUR";
