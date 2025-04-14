@@ -64,6 +64,175 @@ public class piceriainterface extends JFrame {
 		setContentPane(contentPane);
 		cardLayout = new CardLayout(0, 0);
 		contentPane.setLayout(cardLayout);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(255, 255, 255));
+		contentPane.add(panel_2, "Login");
+		panel_2.setLayout(null);
+		
+		textField = new JTextField();
+		textField.setFont(new Font("Arial", Font.BOLD, 12));
+		textField.setForeground(new Color(0, 0, 0));
+		textField.setBounds(478, 232, 166, 32);
+		panel_2.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Arial", Font.PLAIN, 12));
+		textField_1.setBounds(478, 300, 166, 32);
+		panel_2.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JButton btnNewButton_8 = new JButton("Reģistrēties");
+		btnNewButton_8.setBackground(new Color(255, 255, 255));
+		btnNewButton_8.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_8.setBounds(455, 343, 107, 23);
+		panel_2.add(btnNewButton_8);
+		btnNewButton_8.addActionListener(e -> {
+			cardLayout.show(contentPane, "Regestracija");
+		});
+		
+		JButton btnNewButton_9 = new JButton("Pieteikties");
+		btnNewButton_9.setBackground(new Color(255, 255, 255));
+		btnNewButton_9.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_9.setBounds(563, 343, 107, 23);
+		panel_2.add(btnNewButton_9);
+		btnNewButton_9.addActionListener(e -> {
+		    String username = textField.getText();
+		    String parole = textField_1.getText();
+
+		    if (username.isEmpty() || parole.isEmpty()) {
+		        JOptionPane.showMessageDialog(panel_2, "Lūdzu, ievadiet gan lietotājvārdu, gan paroli.", "Kļūda", JOptionPane.ERROR_MESSAGE);
+		        return;
+		    }
+
+		    boolean success = klientsloginreg.loginUser(username, parole);
+		    if (success) {
+		        JOptionPane.showMessageDialog(panel_2,
+		            "Pieteikšanās veiksmīga!\nSveicināts, " + username + "!",
+		            "Laipni lūgts",
+		            JOptionPane.INFORMATION_MESSAGE);
+		         cardLayout.show(contentPane, "menu");
+		    } else {
+		        JOptionPane.showMessageDialog(panel_2,
+		            "Nepareizs lietotājvārds vai parole.",
+		            "Kļūda",
+		            JOptionPane.ERROR_MESSAGE);
+		    }
+		});
+		
+		JLabel lblNewLabel_9 = new JLabel("Pieteikties");
+		lblNewLabel_9.setFont(new Font("Arial", Font.BOLD, 30));
+		lblNewLabel_9.setBounds(484, 141, 154, 65);
+		panel_2.add(lblNewLabel_9);
+		
+		JLabel lblNewLabel_10 = new JLabel("Lietotājvārds");
+		lblNewLabel_10.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_10.setBounds(524, 207, 74, 14);
+		panel_2.add(lblNewLabel_10);
+		
+		JLabel lblNewLabel_10_1 = new JLabel("Parole");
+		lblNewLabel_10_1.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_10_1.setBounds(543, 275, 37, 14);
+		panel_2.add(lblNewLabel_10_1);
+		
+		JPanel panel_3 = new JPanel();
+		contentPane.add(panel_3, "Regestracija");
+		panel_3.setLayout(null);
+		
+		textField_2 = new JTextField();
+		textField_2.setForeground(Color.BLACK);
+		textField_2.setFont(new Font("Arial", Font.BOLD, 12));
+		textField_2.setColumns(10);
+		textField_2.setBounds(478, 348, 166, 32);
+		panel_3.add(textField_2);
+		
+		textField_3 = new JTextField();
+		textField_3.setFont(new Font("Arial", Font.PLAIN, 12));
+		textField_3.setColumns(10);
+		textField_3.setBounds(478, 416, 166, 32);
+		panel_3.add(textField_3);
+		
+		JButton btnNewButton_8_1 = new JButton("Reģistrēties");
+		btnNewButton_8_1.addActionListener(e -> {
+			 String vards = textField_4.getText();
+			 String uzvards = textField_5.getText();
+			 String username = textField_2.getText();
+			 String parole = textField_3.getText();
+
+			    if (username.isEmpty() || parole.isEmpty()) {
+			        JOptionPane.showMessageDialog(panel_3, "Lietotājvārds un parole ir obligāti!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+			        return;
+			    }
+			    
+			    boolean registered = klientsloginreg.registerUser(username, parole, vards, uzvards);
+				
+				 if (registered) {
+				        JOptionPane.showMessageDialog(panel_3,
+				            "Reģistrācija veiksmīga!\nLietotājs: " + username,
+				            "Apstiprinājums",
+				            JOptionPane.INFORMATION_MESSAGE);
+				        cardLayout.show(contentPane, "Login");
+				    } else {
+				        JOptionPane.showMessageDialog(panel_3,
+				            "Lietotājvārds jau eksistē. Lūdzu, mēģiniet vēlreiz.",
+				            "Kļūda",
+				            JOptionPane.ERROR_MESSAGE);
+				    }
+			    
+		});
+		
+		btnNewButton_8_1.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_8_1.setBackground(Color.WHITE);
+		btnNewButton_8_1.setBounds(508, 459, 107, 23);
+		panel_3.add(btnNewButton_8_1);
+		
+		JLabel lblNewLabel_9_1 = new JLabel("Pieteikties");
+		lblNewLabel_9_1.setFont(new Font("Arial", Font.BOLD, 30));
+		lblNewLabel_9_1.setBounds(484, 113, 154, 65);
+		panel_3.add(lblNewLabel_9_1);
+		
+		JLabel lblNewLabel_10_2 = new JLabel("Lietotājvārds");
+		lblNewLabel_10_2.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_10_2.setBounds(524, 323, 74, 14);
+		panel_3.add(lblNewLabel_10_2);
+		
+		JLabel lblNewLabel_10_1_1 = new JLabel("Parole");
+		lblNewLabel_10_1_1.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_10_1_1.setBounds(543, 391, 37, 14);
+		panel_3.add(lblNewLabel_10_1_1);
+		
+		textField_4 = new JTextField();
+		textField_4.setForeground(Color.BLACK);
+		textField_4.setFont(new Font("Arial", Font.BOLD, 12));
+		textField_4.setColumns(10);
+		textField_4.setBounds(478, 203, 166, 32);
+		panel_3.add(textField_4);
+		
+		textField_5 = new JTextField();
+		textField_5.setFont(new Font("Arial", Font.PLAIN, 12));
+		textField_5.setColumns(10);
+		textField_5.setBounds(478, 271, 166, 32);
+		panel_3.add(textField_5);
+		
+		JLabel lblNewLabel_10_2_1 = new JLabel("Vards");
+		lblNewLabel_10_2_1.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_10_2_1.setBounds(540, 178, 43, 14);
+		panel_3.add(lblNewLabel_10_2_1);
+		
+		JLabel lblNewLabel_10_1_1_1 = new JLabel("Uzvards");
+		lblNewLabel_10_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_10_1_1_1.setBounds(536, 246, 51, 14);
+		panel_3.add(lblNewLabel_10_1_1_1);
+		
+		JButton btnNewButton_9_1 = new JButton("Atpakaļ");
+		btnNewButton_9_1.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_9_1.setBackground(Color.WHITE);
+		btnNewButton_9_1.setBounds(0, 0, 89, 23);
+		panel_3.add(btnNewButton_9_1);
+		btnNewButton_9_1.addActionListener(e -> {
+			cardLayout.show(contentPane, "Login");
+		});
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
@@ -97,19 +266,13 @@ public class piceriainterface extends JFrame {
 		panel.add(lblNewLabel_8);
 		
 		JButton btnNewButton_3_1 = new JButton("Skatīt izvēlni");
+		btnNewButton_3_1.addActionListener(e -> {
+			cardLayout.show(contentPane, "dzerieni");
+		});
 		btnNewButton_3_1.setFont(new Font("Arial", Font.BOLD, 12));
 		btnNewButton_3_1.setBackground(Color.WHITE);
 		btnNewButton_3_1.setBounds(625, 514, 119, 23);
 		panel.add(btnNewButton_3_1);
-		
-		JButton btnNewButton_5 = new JButton("Jusu konts\r\n");
-		btnNewButton_5.setBackground(new Color(255, 255, 255));
-		btnNewButton_5.setFont(new Font("Arial", Font.BOLD, 12));
-		btnNewButton_5.setBounds(1016, 0, 107, 23);
-		panel.add(btnNewButton_5);
-		btnNewButton_5.addActionListener(e -> {
-			cardLayout.show(contentPane, "Login");
-		});
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
@@ -141,26 +304,19 @@ public class piceriainterface extends JFrame {
 		    String[] sizes = {"30", "40", "50"};
 		    String sizeStr = (String) JOptionPane.showInputDialog(null, "Izvēlies izmēru:", "Picas lielums",
 		            JOptionPane.QUESTION_MESSAGE, null, sizes, sizes[0]);
-
 		    if (sizeStr == null) return;
 
 		    int size = Integer.parseInt(sizeStr);
 		    double cena = 7.99;
-		    switch (size) {
-		        case 40 -> cena += 2.0;
-		        case 50 -> cena += 4.0;
-		    }
+		    if (size == 40) cena += 2;
+		    else if (size == 50) cena += 4;
 
-		    String[] additions = {"Papildus mocarella"};
-		    List<String> selectedToppings = new ArrayList<>();
-
-		    int add = JOptionPane.showConfirmDialog(null, "Vai pievienot papildus mocarellu?", "Papildinājums", JOptionPane.YES_NO_OPTION);
-		    if (add == JOptionPane.YES_OPTION) {
-		        selectedToppings.add("Papildus mocarella");
+		    List<String> toppings = new ArrayList<>();
+		    if (JOptionPane.showConfirmDialog(null, "Papildus mocarella?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		        toppings.add("Papildus mocarella");
 		        cena += 1.0;
 		    }
-
-		    pica margarita = new pica("Margarita", size, cena, selectedToppings);
+		    pica margarita = new pica("Margarita", size, cena, toppings);
 		    cart.add(margarita);
 		    margarita.showInfo();
 		});
@@ -184,37 +340,31 @@ public class piceriainterface extends JFrame {
 		
 		JButton btnNewButton_1 = new JButton("Pievienot");
 		btnNewButton_1.addActionListener(e -> {
-		    String[] sizes = {"30", "40", "50"};
+			String[] sizes = {"30", "40", "50"};
 		    String sizeStr = (String) JOptionPane.showInputDialog(null, "Izvēlies izmēru:", "Picas lielums",
 		            JOptionPane.QUESTION_MESSAGE, null, sizes, sizes[0]);
-
 		    if (sizeStr == null) return;
 
 		    int size = Integer.parseInt(sizeStr);
 		    double cena = 9.99;
-		    switch (size) {
-		        case 40 -> cena += 2.0;
-		        case 50 -> cena += 4.0;
-		    }
+		    if (size == 40) cena += 2;
+		    else if (size == 50) cena += 4;
 
-		    List<String> selectedToppings = new ArrayList<>();
-
+		    List<String> toppings = new ArrayList<>();
 		    if (JOptionPane.showConfirmDialog(null, "Papildus vistas gaļa?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-		        selectedToppings.add("Papildus vistas gaļa");
+		        toppings.add("Papildus pikanti pepperoni");
 		        cena += 1.0;
 		    }
-
 		    if (JOptionPane.showConfirmDialog(null, "Papildus mocarella?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-		        selectedToppings.add("Papildus mocarella");
+		        toppings.add("Papildus mocarella");
+		        cena += 1.0;
+		    }
+		    if (JOptionPane.showConfirmDialog(null, "Papildus sarkanais sīpols?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    	toppings.add("Papildus sarkanais sīpols");
 		        cena += 1.0;
 		    }
 
-		    if (JOptionPane.showConfirmDialog(null, "Papildus sarkanais sīpols?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-		        selectedToppings.add("Papildus sarkanais sīpols");
-		        cena += 0.5;
-		    }
-
-		    pica bbq = new pica("BBQ", size, cena, selectedToppings);
+		    pica bbq = new pica("Bbq", size, cena, toppings);
 		    cart.add(bbq);
 		    bbq.showInfo();
 		});
@@ -454,200 +604,161 @@ public class piceriainterface extends JFrame {
 		btnNewButton_4.setBackground(new Color(255, 255, 255));
 		btnNewButton_4.setBounds(0, 0, 89, 23);
 		panel_1.add(btnNewButton_4);
+		
+		JButton btnNewButton_4_1_1_1 = new JButton("Skatīt grozu");
+		btnNewButton_4_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_4_1_1_1.setBackground(Color.WHITE);
+		btnNewButton_4_1_1_1.setBounds(1007, 0, 116, 23);
+		panel_1.add(btnNewButton_4_1_1_1);
 		btnNewButton_4.addActionListener(e -> {
 			cardLayout.show(contentPane, "menu");
+		});		
+			JPanel panel_4 = new JPanel();
+			panel_4.setLayout(null);
+			panel_4.setBackground(Color.WHITE);
+			contentPane.add(panel_4, "dzerieni");
+			
+			JLabel lblNewLabel_2_3 = new JLabel("ŪDENS");
+			lblNewLabel_2_3.setFont(new Font("Arial", Font.BOLD, 25));
+			lblNewLabel_2_3.setBounds(193, 45, 220, 34);
+			panel_4.add(lblNewLabel_2_3);
+			
+			JLabel lblNewLabel_11 = new JLabel("New label");
+			lblNewLabel_11.setIcon(new ImageIcon(piceriainterface.class.getResource("/images/water.png")));
+			lblNewLabel_11.setBounds(40, 22, 150, 150);
+			panel_4.add(lblNewLabel_11);
+			
+			JLabel lblNewLabel_1_3 = new JLabel("New label");
+			lblNewLabel_1_3.setIcon(new ImageIcon(piceriainterface.class.getResource("/images/sprite.png")));
+			lblNewLabel_1_3.setBounds(40, 222, 150, 150);
+			panel_4.add(lblNewLabel_1_3);
+			
+			JButton btnNewButton_5 = new JButton("Pievienot");
+			btnNewButton_5.setFont(new Font("Arial", Font.PLAIN, 12));
+			btnNewButton_5.setBackground(Color.WHITE);
+			btnNewButton_5.setBounds(193, 125, 89, 23);
+			panel_4.add(btnNewButton_5);
+			
+			JLabel lblNewLabel_2_1_3 = new JLabel("SPRITE");
+			lblNewLabel_2_1_3.setFont(new Font("Arial", Font.BOLD, 25));
+			lblNewLabel_2_1_3.setBounds(193, 245, 220, 34);
+			panel_4.add(lblNewLabel_2_1_3);
+			
+			JButton btnNewButton_1_3 = new JButton("Pievienot");
+			btnNewButton_1_3.setFont(new Font("Arial", Font.PLAIN, 12));
+			btnNewButton_1_3.setBackground(Color.WHITE);
+			btnNewButton_1_3.setBounds(193, 325, 89, 23);
+			panel_4.add(btnNewButton_1_3);
+			
+			JLabel lblNewLabel_1_1_2 = new JLabel("New label");
+			lblNewLabel_1_1_2.setIcon(new ImageIcon(piceriainterface.class.getResource("/images/fanta.png")));
+			lblNewLabel_1_1_2.setBounds(40, 422, 150, 150);
+			panel_4.add(lblNewLabel_1_1_2);
+			
+			JLabel lblNewLabel_2_1_1_2 = new JLabel("FANTA");
+			lblNewLabel_2_1_1_2.setFont(new Font("Arial", Font.BOLD, 25));
+			lblNewLabel_2_1_1_2.setBounds(193, 445, 220, 34);
+			panel_4.add(lblNewLabel_2_1_1_2);
+			
+			JButton btnNewButton_1_1_2 = new JButton("Pievienot");
+			btnNewButton_1_1_2.setFont(new Font("Arial", Font.PLAIN, 12));
+			btnNewButton_1_1_2.setBackground(Color.WHITE);
+			btnNewButton_1_1_2.setBounds(190, 525, 89, 23);
+			panel_4.add(btnNewButton_1_1_2);
+			
+			JLabel lblNewLabel_4_4 = new JLabel("0,5 1,50€");
+			lblNewLabel_4_4.setFont(new Font("Arial", Font.PLAIN, 15));
+			lblNewLabel_4_4.setBounds(193, 90, 133, 14);
+			panel_4.add(lblNewLabel_4_4);
+			
+			JLabel lblNewLabel_4_1_2 = new JLabel("0,5 2,50€");
+			lblNewLabel_4_1_2.setFont(new Font("Arial", Font.PLAIN, 15));
+			lblNewLabel_4_1_2.setBounds(193, 290, 133, 14);
+			panel_4.add(lblNewLabel_4_1_2);
+			
+			JLabel lblNewLabel_4_2_2 = new JLabel("0,5 2,50€");
+			lblNewLabel_4_2_2.setFont(new Font("Arial", Font.PLAIN, 15));
+			lblNewLabel_4_2_2.setBounds(193, 490, 133, 14);
+			panel_4.add(lblNewLabel_4_2_2);
+			
+			JLabel lblNewLabel_2_2_1 = new JLabel("COCA COLA");
+			lblNewLabel_2_2_1.setFont(new Font("Arial", Font.BOLD, 25));
+			lblNewLabel_2_2_1.setBounds(729, 45, 220, 34);
+			panel_4.add(lblNewLabel_2_2_1);
+			
+			JLabel lblNewLabel_5_1 = new JLabel("New label");
+			lblNewLabel_5_1.setIcon(new ImageIcon(piceriainterface.class.getResource("/images/cola.png")));
+			lblNewLabel_5_1.setBounds(569, 22, 150, 150);
+			panel_4.add(lblNewLabel_5_1);
+			
+			JLabel lblNewLabel_1_2_1 = new JLabel("New label");
+			lblNewLabel_1_2_1.setIcon(new ImageIcon(piceriainterface.class.getResource("/images/cola zero.png")));
+			lblNewLabel_1_2_1.setBounds(569, 222, 150, 150);
+			panel_4.add(lblNewLabel_1_2_1);
+			
+			JButton btnNewButton_2_1 = new JButton("Pievienot");
+			btnNewButton_2_1.setFont(new Font("Arial", Font.PLAIN, 12));
+			btnNewButton_2_1.setBackground(Color.WHITE);
+			btnNewButton_2_1.setBounds(729, 125, 89, 23);
+			panel_4.add(btnNewButton_2_1);
+			
+			JLabel lblNewLabel_2_1_2_1 = new JLabel("COCA COLA ZERO");
+			lblNewLabel_2_1_2_1.setFont(new Font("Arial", Font.BOLD, 25));
+			lblNewLabel_2_1_2_1.setBounds(729, 245, 258, 34);
+			panel_4.add(lblNewLabel_2_1_2_1);
+			
+			JButton btnNewButton_1_2_1 = new JButton("Pievienot");
+			btnNewButton_1_2_1.setFont(new Font("Arial", Font.PLAIN, 12));
+			btnNewButton_1_2_1.setBackground(Color.WHITE);
+			btnNewButton_1_2_1.setBounds(729, 325, 89, 23);
+			panel_4.add(btnNewButton_1_2_1);
+			
+			JLabel lblNewLabel_1_1_1_1 = new JLabel("New label");
+			lblNewLabel_1_1_1_1.setIcon(new ImageIcon(piceriainterface.class.getResource("/images/pivo.png")));
+			lblNewLabel_1_1_1_1.setBounds(569, 422, 150, 150);
+			panel_4.add(lblNewLabel_1_1_1_1);
+			
+			JLabel lblNewLabel_2_1_1_1_1 = new JLabel("ALUS");
+			lblNewLabel_2_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 25));
+			lblNewLabel_2_1_1_1_1.setBounds(729, 445, 220, 34);
+			panel_4.add(lblNewLabel_2_1_1_1_1);
+			
+			JButton btnNewButton_1_1_1_1 = new JButton("Pievienot");
+			btnNewButton_1_1_1_1.setFont(new Font("Arial", Font.PLAIN, 12));
+			btnNewButton_1_1_1_1.setBackground(Color.WHITE);
+			btnNewButton_1_1_1_1.setBounds(729, 525, 89, 23);
+			panel_4.add(btnNewButton_1_1_1_1);
+			
+			JLabel lblNewLabel_4_3_1 = new JLabel("0,5 2,50€");
+			lblNewLabel_4_3_1.setFont(new Font("Arial", Font.PLAIN, 15));
+			lblNewLabel_4_3_1.setBounds(729, 90, 133, 14);
+			panel_4.add(lblNewLabel_4_3_1);
+			
+			JLabel lblNewLabel_4_1_1_1 = new JLabel("0,5 2,50€");
+			lblNewLabel_4_1_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
+			lblNewLabel_4_1_1_1.setBounds(729, 290, 133, 14);
+			panel_4.add(lblNewLabel_4_1_1_1);
+			
+			JLabel lblNewLabel_4_2_1_1 = new JLabel("0,5 4,50€");
+			lblNewLabel_4_2_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
+			lblNewLabel_4_2_1_1.setBounds(729, 490, 133, 14);
+			panel_4.add(lblNewLabel_4_2_1_1);
+			
+			JButton btnNewButton_4_1 = new JButton("Atpakaļ");
+			btnNewButton_4_1.addActionListener(e -> {
+				cardLayout.show(contentPane, "menu");
+			});
+			btnNewButton_4_1.setFont(new Font("Arial", Font.BOLD, 12));
+			btnNewButton_4_1.setBackground(Color.WHITE);
+			btnNewButton_4_1.setBounds(0, 0, 89, 23);
+			panel_4.add(btnNewButton_4_1);
+			
+			JButton btnNewButton_4_1_1 = new JButton("Skatīt grozu");
+			btnNewButton_4_1_1.setFont(new Font("Arial", Font.BOLD, 12));
+			btnNewButton_4_1_1.setBackground(Color.WHITE);
+			btnNewButton_4_1_1.setBounds(1007, 0, 116, 23);
+			panel_4.add(btnNewButton_4_1_1);
 
-		});
-		
-		JButton btnNewButton_6 = new JButton("Jusu konts");
-		btnNewButton_6.setBackground(new Color(255, 255, 255));
-		btnNewButton_6.setFont(new Font("Arial", Font.BOLD, 12));
-		btnNewButton_6.setBounds(1015, 0, 108, 23);
-		panel_1.add(btnNewButton_6);
-		btnNewButton_6.addActionListener(e -> {
-			cardLayout.show(contentPane, "Login");
-		});
-		
-
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(255, 255, 255));
-		contentPane.add(panel_2, "Login");
-		panel_2.setLayout(null);
-		
-		JButton btnNewButton_7 = new JButton("Atpakaļ");
-		btnNewButton_7.setFont(new Font("Arial", Font.BOLD, 12));
-		btnNewButton_7.setBackground(Color.WHITE);
-		btnNewButton_7.setBounds(0, 0, 89, 23);
-		panel_2.add(btnNewButton_7);
-		btnNewButton_7.addActionListener(e -> {
-			cardLayout.show(contentPane, "menu");
-		});
-		
-		textField = new JTextField();
-		textField.setFont(new Font("Arial", Font.BOLD, 12));
-		textField.setForeground(new Color(0, 0, 0));
-		textField.setBounds(478, 232, 166, 32);
-		panel_2.add(textField);
-		textField.setColumns(10);
-		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Arial", Font.PLAIN, 12));
-		textField_1.setBounds(478, 300, 166, 32);
-		panel_2.add(textField_1);
-		textField_1.setColumns(10);
-		
-		JButton btnNewButton_8 = new JButton("Reģistrēties");
-		btnNewButton_8.setBackground(new Color(255, 255, 255));
-		btnNewButton_8.setFont(new Font("Arial", Font.BOLD, 12));
-		btnNewButton_8.setBounds(455, 343, 107, 23);
-		panel_2.add(btnNewButton_8);
-		btnNewButton_8.addActionListener(e -> {
-			cardLayout.show(contentPane, "Regestracija");
-		});
-		
-		JButton btnNewButton_9 = new JButton("Pieteikties");
-		btnNewButton_9.setBackground(new Color(255, 255, 255));
-		btnNewButton_9.setFont(new Font("Arial", Font.BOLD, 12));
-		btnNewButton_9.setBounds(563, 343, 107, 23);
-		panel_2.add(btnNewButton_9);
-		btnNewButton_9.addActionListener(e -> {
-		    String username = textField_2.getText();
-		    String parole = textField_3.getText();
-
-		    if (username.isEmpty() || parole.isEmpty()) {
-		        JOptionPane.showMessageDialog(panel_2, "Lūdzu, ievadiet gan lietotājvārdu, gan paroli.", "Kļūda", JOptionPane.ERROR_MESSAGE);
-		        return;
-		    }
-
-		    boolean success = klientsloginreg.loginUser(username, parole);
-
-		    if (success) {
-		        JOptionPane.showMessageDialog(panel_2,
-		            "Pieteikšanās veiksmīga!\nSveicināts, " + username + "!",
-		            "Laipni lūgts",
-		            JOptionPane.INFORMATION_MESSAGE);
-		         cardLayout.show(contentPane, "menu");
-		    } else {
-		        JOptionPane.showMessageDialog(panel_2,
-		            "Nepareizs lietotājvārds vai parole.",
-		            "Kļūda",
-		            JOptionPane.ERROR_MESSAGE);
-		    }
-		});
-		
-		JLabel lblNewLabel_9 = new JLabel("Pieteikties");
-		lblNewLabel_9.setFont(new Font("Arial", Font.BOLD, 30));
-		lblNewLabel_9.setBounds(484, 141, 154, 65);
-		panel_2.add(lblNewLabel_9);
-		
-		JLabel lblNewLabel_10 = new JLabel("Lietotājvārds");
-		lblNewLabel_10.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_10.setBounds(524, 207, 74, 14);
-		panel_2.add(lblNewLabel_10);
-		
-		JLabel lblNewLabel_10_1 = new JLabel("Parole");
-		lblNewLabel_10_1.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_10_1.setBounds(543, 275, 37, 14);
-		panel_2.add(lblNewLabel_10_1);
-		
-		JPanel panel_3 = new JPanel();
-		contentPane.add(panel_3, "Regestracija");
-		panel_3.setLayout(null);
-		
-		textField_2 = new JTextField();
-		textField_2.setForeground(Color.BLACK);
-		textField_2.setFont(new Font("Arial", Font.BOLD, 12));
-		textField_2.setColumns(10);
-		textField_2.setBounds(478, 348, 166, 32);
-		panel_3.add(textField_2);
-		
-		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Arial", Font.PLAIN, 12));
-		textField_3.setColumns(10);
-		textField_3.setBounds(478, 416, 166, 32);
-		panel_3.add(textField_3);
-		
-		JButton btnNewButton_8_1 = new JButton("Reģistrēties");
-		btnNewButton_8_1.addActionListener(e -> {
-			 String vards = textField_4.getText();
-			 String uzvards = textField_5.getText();
-			 String username = textField_2.getText();
-			 String parole = textField_3.getText();
-
-			    if (username.isEmpty() || parole.isEmpty()) {
-			        JOptionPane.showMessageDialog(panel_3, "Lietotājvārds un parole ir obligāti!", "Kļūda", JOptionPane.ERROR_MESSAGE);
-			        return;
-			    }
-			    
-			    boolean registered = klientsloginreg.registerUser(username, parole, vards, uzvards);
-				
-				 if (registered) {
-				        JOptionPane.showMessageDialog(panel_3,
-				            "Reģistrācija veiksmīga!\nLietotājs: " + username,
-				            "Apstiprinājums",
-				            JOptionPane.INFORMATION_MESSAGE);
-				        cardLayout.show(contentPane, "Login");
-				    } else {
-				        JOptionPane.showMessageDialog(panel_3,
-				            "Lietotājvārds jau eksistē. Lūdzu, mēģiniet vēlreiz.",
-				            "Kļūda",
-				            JOptionPane.ERROR_MESSAGE);
-				    }
-			    
-		});
-		
-		btnNewButton_8_1.setFont(new Font("Arial", Font.BOLD, 12));
-		btnNewButton_8_1.setBackground(Color.WHITE);
-		btnNewButton_8_1.setBounds(508, 459, 107, 23);
-		panel_3.add(btnNewButton_8_1);
-		
-		JLabel lblNewLabel_9_1 = new JLabel("Pieteikties");
-		lblNewLabel_9_1.setFont(new Font("Arial", Font.BOLD, 30));
-		lblNewLabel_9_1.setBounds(484, 113, 154, 65);
-		panel_3.add(lblNewLabel_9_1);
-		
-		JLabel lblNewLabel_10_2 = new JLabel("Lietotājvārds");
-		lblNewLabel_10_2.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_10_2.setBounds(524, 323, 74, 14);
-		panel_3.add(lblNewLabel_10_2);
-		
-		JLabel lblNewLabel_10_1_1 = new JLabel("Parole");
-		lblNewLabel_10_1_1.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_10_1_1.setBounds(543, 391, 37, 14);
-		panel_3.add(lblNewLabel_10_1_1);
-		
-		textField_4 = new JTextField();
-		textField_4.setForeground(Color.BLACK);
-		textField_4.setFont(new Font("Arial", Font.BOLD, 12));
-		textField_4.setColumns(10);
-		textField_4.setBounds(478, 203, 166, 32);
-		panel_3.add(textField_4);
-		
-		textField_5 = new JTextField();
-		textField_5.setFont(new Font("Arial", Font.PLAIN, 12));
-		textField_5.setColumns(10);
-		textField_5.setBounds(478, 271, 166, 32);
-		panel_3.add(textField_5);
-		
-		JLabel lblNewLabel_10_2_1 = new JLabel("Vards");
-		lblNewLabel_10_2_1.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_10_2_1.setBounds(540, 178, 43, 14);
-		panel_3.add(lblNewLabel_10_2_1);
-		
-		JLabel lblNewLabel_10_1_1_1 = new JLabel("Uzvards");
-		lblNewLabel_10_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_10_1_1_1.setBounds(536, 246, 51, 14);
-		panel_3.add(lblNewLabel_10_1_1_1);
-		
-		JButton btnNewButton_9_1 = new JButton("Atpakaļ");
-		btnNewButton_9_1.setFont(new Font("Arial", Font.BOLD, 12));
-		btnNewButton_9_1.setBackground(Color.WHITE);
-		btnNewButton_9_1.setBounds(0, 0, 89, 23);
-		panel_3.add(btnNewButton_9_1);
-		btnNewButton_9_1.addActionListener(e -> {
-			cardLayout.show(contentPane, "Login");
-		});
 		
 	}
 }
