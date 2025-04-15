@@ -637,6 +637,59 @@ public class piceriainterface extends JFrame {
 		panel_1.add(btnNewButton_4_1_1_1);
 		
 		JButton btnNewButton_4_1_1_1_1 = new JButton("Pasūtīt");
+		btnNewButton_4_1_1_1_1.addActionListener(e -> {
+			    if (cart.isEmpty()) {
+			        JOptionPane.showMessageDialog(null, "Grozs ir tukšs!");
+			        return;
+			    }
+
+			    double total = 0;
+			    for (pica p : cart) {
+			        total += p.getCena();
+			    }
+
+			    String[] darbibas = {"Paņemt pašam", "Piegāde (+3€)"};
+			    int izvele = JOptionPane.showOptionDialog(null,
+			            "Izvēlies saņemšanas veidu:",
+			            "Piegāde vai paņemšana",
+			            JOptionPane.DEFAULT_OPTION,
+			            JOptionPane.QUESTION_MESSAGE,
+			            null,
+			            darbibas,
+			            darbibas[0]);
+
+			    String sanemsana = "";
+			    if (izvele == 1) {
+			        total += 3.00;
+			        sanemsana = "Piegāde";
+			    } else if (izvele == 0) {
+			        sanemsana = "Paņemt pašam";
+			    } else {
+			        return;
+			    }
+
+			    int confirm = JOptionPane.showConfirmDialog(null, "Kopējā summa: " + total + " EUR\nVai vēlies pasūtīt?", "Pasūtījums", JOptionPane.YES_NO_OPTION);
+			    if (confirm == JOptionPane.YES_OPTION) {
+			        try (FileWriter writer = new FileWriter("dati.txt", true)) {
+			            writer.write("=== JAUNS PASŪTĪJUMS ===\n");
+			            writer.write("Saņemšana: " + sanemsana + "\n");
+			            for (pica p : cart) {
+			                writer.write("Pica: " + p.getTips() + "\n");
+			                writer.write("Izmērs: " + p.getSize() + " cm\n");
+			                writer.write("Papildinājumi: " + p.getToppings() + "\n");
+			                writer.write("Cena: " + p.getCena() + " EUR\n\n");
+			            }
+			            writer.write("Kopā ar piegādi: " + total + " EUR\n");
+			            writer.write("========================\n\n");
+			        } catch (IOException ex) {
+			            JOptionPane.showMessageDialog(null, "Kļūda saglabājot pasūtījumu!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+			        }
+
+			        cart.clear();
+			        JOptionPane.showMessageDialog(null, "Paldies par pasūtījumu! 🍕");
+			    }
+			});
+
 		btnNewButton_4_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
 		btnNewButton_4_1_1_1_1.setBackground(Color.WHITE);
 		btnNewButton_4_1_1_1_1.setBounds(1007, 35, 116, 23);
