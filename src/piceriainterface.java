@@ -694,6 +694,37 @@ public class piceriainterface extends JFrame {
 		btnNewButton_4_1_1_1_1.setBackground(Color.WHITE);
 		btnNewButton_4_1_1_1_1.setBounds(1007, 35, 116, 23);
 		panel_1.add(btnNewButton_4_1_1_1_1);
+		
+		JButton btnNewButton_4_1_1_1_1_1 = new JButton("Noņemt picu");
+		btnNewButton_4_1_1_1_1_1.addActionListener(e -> {
+		    if (cart.isEmpty()) {
+		        JOptionPane.showMessageDialog(null, "Grozs jau ir tukšs!");
+		        return;
+		    }
+
+		    StringBuilder list = new StringBuilder();
+		    for (int i = 0; i < cart.size(); i++) {
+		        list.append(i + 1).append(". ").append(cart.get(i).getTips()).append(" - ")
+		            .append(cart.get(i).getCena()).append(" EUR\n");
+		    }
+
+		    String input = JOptionPane.showInputDialog(null, "Izvēlies picu, kuru noņemt (ievadi numuru):\n" + list);
+		    try {
+		        int index = Integer.parseInt(input) - 1;
+		        if (index >= 0 && index < cart.size()) {
+		            cart.remove(index);
+		            JOptionPane.showMessageDialog(null, "Pica tika noņemta no groza.");
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Nederīgs numurs!");
+		        }
+		    } catch (Exception ex) {
+		        JOptionPane.showMessageDialog(null, "Ievadi derīgu skaitli!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+		    }
+		});
+		btnNewButton_4_1_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_4_1_1_1_1_1.setBackground(Color.WHITE);
+		btnNewButton_4_1_1_1_1_1.setBounds(1007, 67, 116, 23);
+		panel_1.add(btnNewButton_4_1_1_1_1_1);
 		btnNewButton_4.addActionListener(e -> {
 			cardLayout.show(contentPane, "menu");
 		});		
