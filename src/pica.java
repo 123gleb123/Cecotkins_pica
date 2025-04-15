@@ -15,6 +15,11 @@ public class pica {
 	        this.toppings = toppings;
 	    }
 	  
+	  public String getTips() {return tips;}
+	  public int getSize() {return size;}
+	  public double getCena() {return cena;}
+	  public List<String> getToppings() {return toppings;}
+	  
 	  public void showInfo() {
 	        String message = "Picas tips: " + tips +
 	                         "\nLielums: " + size + " см" +
@@ -22,21 +27,6 @@ public class pica {
 	                         "\nCena: " + cena + " EUR";
 	        
 	        JOptionPane.showMessageDialog(null, message, "Informācija par picu", JOptionPane.INFORMATION_MESSAGE);
-	    }
-
-	    public void applyDiscount() {
-	        String input = JOptionPane.showInputDialog("Ievadiet EUR atlaides lielumu:");
-	        try {
-	            double discount = Double.parseDouble(input);
-	            if (discount > 0 && discount <= cena) {
-	                cena -= discount;
-	                JOptionPane.showMessageDialog(null, "Jauna cena pēc atlaides:v" + cena + " EUR");
-	            } else {
-	                JOptionPane.showMessageDialog(null, "Nekorekta atlaide! ", "Kļūda", JOptionPane.ERROR_MESSAGE);
-	            }
-	        } catch (NumberFormatException e) {
-	            JOptionPane.showMessageDialog(null, "Ievadiet derīgu skaitli!", "Kļūda", JOptionPane.ERROR_MESSAGE);
-	        }
 	    }
 	    
 }

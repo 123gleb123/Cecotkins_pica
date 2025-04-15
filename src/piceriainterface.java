@@ -1,7 +1,11 @@
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
@@ -474,11 +480,11 @@ public class piceriainterface extends JFrame {
 		    }
 		    if (JOptionPane.showConfirmDialog(null, "Papildus gorgonzola?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus gorgonzola");
-		        cena += 1.2;
+		        cena += 1.0;
 		    }
 		    if (JOptionPane.showConfirmDialog(null, "Papildus parmezāns?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus parmezāns");
-		        cena += 1.2;
+		        cena += 1.0;
 		    }
 		    if (JOptionPane.showConfirmDialog(null, "Papildus emmentāls?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus emmentāls");
@@ -606,10 +612,35 @@ public class piceriainterface extends JFrame {
 		panel_1.add(btnNewButton_4);
 		
 		JButton btnNewButton_4_1_1_1 = new JButton("Skatīt grozu");
+		btnNewButton_4_1_1_1.addActionListener(e -> {
+		    if (cart.isEmpty()) {
+		        JOptionPane.showMessageDialog(null, "Grozs ir tukšs.");
+		        return;
+		    }
+
+		    StringBuilder message = new StringBuilder("Tavs grozs:\n\n");
+		    int i = 1;
+		    for (pica p : cart) {
+		        message.append(i++).append(". ")
+		               .append(p.getTips()).append(" - ")
+		               .append(p.getSize()).append("cm - ")
+		               .append(p.getCena()).append(" EUR\n")
+		               .append("Papildinājumi: ").append(p.getToppings()).append("\n\n");
+		    }
+
+		    JOptionPane.showMessageDialog(null, message.toString(), "Grozs", JOptionPane.INFORMATION_MESSAGE);
+		});
+
 		btnNewButton_4_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
 		btnNewButton_4_1_1_1.setBackground(Color.WHITE);
 		btnNewButton_4_1_1_1.setBounds(1007, 0, 116, 23);
 		panel_1.add(btnNewButton_4_1_1_1);
+		
+		JButton btnNewButton_4_1_1_1_1 = new JButton("Pasūtīt");
+		btnNewButton_4_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_4_1_1_1_1.setBackground(Color.WHITE);
+		btnNewButton_4_1_1_1_1.setBounds(1007, 35, 116, 23);
+		panel_1.add(btnNewButton_4_1_1_1_1);
 		btnNewButton_4.addActionListener(e -> {
 			cardLayout.show(contentPane, "menu");
 		});		
@@ -758,7 +789,8 @@ public class piceriainterface extends JFrame {
 			btnNewButton_4_1_1.setBackground(Color.WHITE);
 			btnNewButton_4_1_1.setBounds(1007, 0, 116, 23);
 			panel_4.add(btnNewButton_4_1_1);
-
-		
+			btnNewButton_4_1_1.addActionListener(e -> {
+				cardLayout.show(contentPane, "groza");
+			});
 	}
 }

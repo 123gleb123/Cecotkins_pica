@@ -22,13 +22,4 @@ public class klients {
 	public int getTelNumurs() { return telnumurs; }
 	public String getAddress() { return adress; }
 	
-	public void showInfo() {
-        String message = "Vards: " + vards +
-                         "\nUzvards: " + uzvards +
-                         "\nTelefona numurs: " + telnumurs +
-                         "\nAdrese: " + adress;
-        
-        JOptionPane.showMessageDialog(null, message, "Informācija par klientu", JOptionPane.INFORMATION_MESSAGE);
-    }
-	
 }
