@@ -307,18 +307,21 @@ public class piceriainterface extends JFrame {
 		
 		JButton btnNewButton = new JButton("Pievienot");
 		btnNewButton.addActionListener(e -> {
-		    String[] sizes = {"30", "40", "50"};
+		    String[] sizes = {"30(7.99€)", "40 (9.99€)", "50 (11.99€)"};
 		    String sizeStr = (String) JOptionPane.showInputDialog(null, "Izvēlies izmēru:", "Picas lielums",
 		            JOptionPane.QUESTION_MESSAGE, null, sizes, sizes[0]);
 		    if (sizeStr == null) return;
 
-		    int size = Integer.parseInt(sizeStr);
-		    double cena = 7.99;
-		    if (size == 40) cena += 2;
-		    else if (size == 50) cena += 4;
+			int size = Integer.parseInt(sizeStr.substring(0, 2));
+			double cena = switch (size) {
+			    case 30 -> 7.99;
+			    case 40 -> 9.99;
+			    case 50 -> 11.99;
+			    default -> 7.99;
+			};
 
 		    List<String> toppings = new ArrayList<>();
-		    if (JOptionPane.showConfirmDialog(null, "Papildus mocarella?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    if (JOptionPane.showConfirmDialog(null, "Papildus mocarella?(+1€)", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus mocarella");
 		        cena += 1.0;
 		    }
@@ -346,29 +349,35 @@ public class piceriainterface extends JFrame {
 		
 		JButton btnNewButton_1 = new JButton("Pievienot");
 		btnNewButton_1.addActionListener(e -> {
-			String[] sizes = {"30", "40", "50"};
+			String[] sizes = {"30 (9.99€)", "40 (11.99€)", "50 (13.99€)"};
 		    String sizeStr = (String) JOptionPane.showInputDialog(null, "Izvēlies izmēru:", "Picas lielums",
 		            JOptionPane.QUESTION_MESSAGE, null, sizes, sizes[0]);
 		    if (sizeStr == null) return;
 
-		    int size = Integer.parseInt(sizeStr);
-		    double cena = 9.99;
-		    if (size == 40) cena += 2;
-		    else if (size == 50) cena += 4;
+			int size = Integer.parseInt(sizeStr.substring(0, 2));
+			double cena = switch (size) {
+			    case 30 -> 9.99;
+			    case 40 -> 11.99;
+			    case 50 -> 13.99;
+			    default -> 9.99;
+			};
 
 		    List<String> toppings = new ArrayList<>();
-		    if (JOptionPane.showConfirmDialog(null, "Papildus vistas gaļa?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    if (JOptionPane.showConfirmDialog(null, "Papildus vistas gaļa?(+1€)", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus pikanti pepperoni");
 		        cena += 1.0;
 		    }
-		    if (JOptionPane.showConfirmDialog(null, "Papildus mocarella?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    if (JOptionPane.showConfirmDialog(null, "Papildus mocarella?(+1€)", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus mocarella");
 		        cena += 1.0;
 		    }
-		    if (JOptionPane.showConfirmDialog(null, "Papildus sarkanais sīpols?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    if (JOptionPane.showConfirmDialog(null, "Papildus sarkanais sīpols?(+1€)", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		    	toppings.add("Papildus sarkanais sīpols");
 		        cena += 1.0;
 		    }
+		    
+		    double scale = Math.pow(10, 2);
+		    cena = Math.round(cena * scale) / scale;
 
 		    pica bbq = new pica("Bbq", size, cena, toppings);
 		    cart.add(bbq);
@@ -396,22 +405,25 @@ public class piceriainterface extends JFrame {
 		
 		JButton btnNewButton_1_1 = new JButton("Pievienot");
 		btnNewButton_1_1.addActionListener(e -> {
-		    String[] sizes = {"30", "40", "50"};
+		    String[] sizes = {"30 (8.99€)", "40 (10.99€)", "50 (12.99€)"};
 		    String sizeStr = (String) JOptionPane.showInputDialog(null, "Izvēlies izmēru:", "Picas lielums",
 		            JOptionPane.QUESTION_MESSAGE, null, sizes, sizes[0]);
 		    if (sizeStr == null) return;
 
-		    int size = Integer.parseInt(sizeStr);
-		    double cena = 8.99;
-		    if (size == 40) cena += 2;
-		    else if (size == 50) cena += 4;
+			int size = Integer.parseInt(sizeStr.substring(0, 2));
+			double cena = switch (size) {
+			    case 30 -> 8.99;
+			    case 40 -> 10.99;
+			    case 50 -> 12.99;
+			    default -> 8.99;
+			};
 
 		    List<String> toppings = new ArrayList<>();
-		    if (JOptionPane.showConfirmDialog(null, "Papildus pepperoni?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    if (JOptionPane.showConfirmDialog(null, "Papildus pepperoni?(+1€)", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus pepperoni");
 		        cena += 1.0;
 		    }
-		    if (JOptionPane.showConfirmDialog(null, "Papildus mocarella?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    if (JOptionPane.showConfirmDialog(null, "Papildus mocarella?(+1€)", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus mocarella");
 		        cena += 1.0;
 		    }
@@ -463,30 +475,33 @@ public class piceriainterface extends JFrame {
 		
 		JButton btnNewButton_2 = new JButton("Pievienot");
 		btnNewButton_2.addActionListener(e -> {
-		    String[] sizes = {"30", "40", "50"};
-		    String sizeStr = (String) JOptionPane.showInputDialog(null, "Izvēlies izmēru:", "Picas lielums",
-		            JOptionPane.QUESTION_MESSAGE, null, sizes, sizes[0]);
-		    if (sizeStr == null) return;
+			String[] sizes = {"30 (7.99€)", "40 (9.99€)", "50 (11.99€)"};
+			String sizeStr = (String) JOptionPane.showInputDialog(null, "Izvēlies izmēru:", "Picas lielums",
+			        JOptionPane.QUESTION_MESSAGE, null, sizes, sizes[0]);
+			if (sizeStr == null) return;
 
-		    int size = Integer.parseInt(sizeStr);
-		    double cena = 7.99;
-		    if (size == 40) cena += 2;
-		    else if (size == 50) cena += 4;
+			int size = Integer.parseInt(sizeStr.substring(0, 2));
+			double cena = switch (size) {
+			    case 30 -> 7.99;
+			    case 40 -> 9.99;
+			    case 50 -> 11.99;
+			    default -> 7.99;
+			};
 
 		    List<String> toppings = new ArrayList<>();
-		    if (JOptionPane.showConfirmDialog(null, "Papildus mocarella?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    if (JOptionPane.showConfirmDialog(null, "Papildus mocarella?(+1€)", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus mocarella");
 		        cena += 1.0;
 		    }
-		    if (JOptionPane.showConfirmDialog(null, "Papildus gorgonzola?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    if (JOptionPane.showConfirmDialog(null, "Papildus gorgonzola?(+1€)", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus gorgonzola");
 		        cena += 1.0;
 		    }
-		    if (JOptionPane.showConfirmDialog(null, "Papildus parmezāns?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    if (JOptionPane.showConfirmDialog(null, "Papildus parmezāns?(+1€)", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus parmezāns");
 		        cena += 1.0;
 		    }
-		    if (JOptionPane.showConfirmDialog(null, "Papildus emmentāls?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    if (JOptionPane.showConfirmDialog(null, "Papildus emmentāls?(+1€)", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus emmentāls");
 		        cena += 1.0;
 		    }
@@ -513,22 +528,25 @@ public class piceriainterface extends JFrame {
 		
 		JButton btnNewButton_1_2 = new JButton("Pievienot");
 		btnNewButton_1_2.addActionListener(e -> {
-		    String[] sizes = {"30", "40", "50"};
+		    String[] sizes = {"30 (9.99€)", "40 (11.99€)", "50 (13.99€)"};
 		    String sizeStr = (String) JOptionPane.showInputDialog(null, "Izvēlies izmēru:", "Picas lielums",
 		            JOptionPane.QUESTION_MESSAGE, null, sizes, sizes[0]);
 		    if (sizeStr == null) return;
 
-		    int size = Integer.parseInt(sizeStr);
-		    double cena = 9.99;
-		    if (size == 40) cena += 2;
-		    else if (size == 50) cena += 4;
+			int size = Integer.parseInt(sizeStr.substring(0, 2));
+			double cena = switch (size) {
+			    case 30 -> 9.99;
+			    case 40 -> 11.99;
+			    case 50 -> 13.99;
+			    default -> 9.99;
+			};
 
 		    List<String> toppings = new ArrayList<>();
-		    if (JOptionPane.showConfirmDialog(null, "Papildus pikanti pepperoni?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    if (JOptionPane.showConfirmDialog(null, "Papildus pikanti pepperoni?(+1€)", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus pikanti pepperoni");
 		        cena += 1.0;
 		    }
-		    if (JOptionPane.showConfirmDialog(null, "Papildus mocarella?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    if (JOptionPane.showConfirmDialog(null, "Papildus mocarella?(+1€)", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus mocarella");
 		        cena += 1.0;
 		    }
@@ -560,22 +578,25 @@ public class piceriainterface extends JFrame {
 		
 		JButton btnNewButton_1_1_1 = new JButton("Pievienot");
 		btnNewButton_1_1_1.addActionListener(e -> {
-		    String[] sizes = {"30", "40", "50"};
+		    String[] sizes = {"30 (7.99€)", "40 (9.99€)", "50 (11.99€)"};
 		    String sizeStr = (String) JOptionPane.showInputDialog(null, "Izvēlies izmēru:", "Picas lielums",
 		            JOptionPane.QUESTION_MESSAGE, null, sizes, sizes[0]);
 		    if (sizeStr == null) return;
 
-		    int size = Integer.parseInt(sizeStr);
-		    double cena = 7.99;
-		    if (size == 40) cena += 2;
-		    else if (size == 50) cena += 4;
+			int size = Integer.parseInt(sizeStr.substring(0, 2));
+			double cena = switch (size) {
+			    case 30 -> 7.99;
+			    case 40 -> 9.99;
+			    case 50 -> 11.99;
+			    default -> 7.99;
+			};
 
 		    List<String> toppings = new ArrayList<>();
-		    if (JOptionPane.showConfirmDialog(null, "Papildus šampinjoni?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    if (JOptionPane.showConfirmDialog(null, "Papildus šampinjoni?(+1€)", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus šampinjoni");
 		        cena += 1.0;
 		    }
-		    if (JOptionPane.showConfirmDialog(null, "Papildus mocarella?", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    if (JOptionPane.showConfirmDialog(null, "Papildus mocarella?(+1€)", "Papildinājums", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 		        toppings.add("Papildus mocarella");
 		        cena += 1.0;
 		    }
