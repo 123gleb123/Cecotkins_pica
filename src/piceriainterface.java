@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -679,6 +682,7 @@ public class piceriainterface extends JFrame {
 		    if (choice == JOptionPane.CLOSED_OPTION) return;
 
 		    boolean isDelivery = (choice == 1);
+		    boolean noDelivery = (choice == 0);
 		    double total = 0;
 		    StringBuilder orderText = new StringBuilder("Pasūtījums:\n");
 
@@ -710,14 +714,20 @@ public class piceriainterface extends JFrame {
 			        ex.printStackTrace();
 			        JOptionPane.showMessageDialog(null, "Kļūda saglabājot failu!", "Kļūda", JOptionPane.ERROR_MESSAGE);
 			    }
-
-			    cart.clear();
 				
-		    } else {
-		        orderText.append("Paņemt pašam\n");
+		    	}else if(noDelivery){
+		    		orderText.append("Paņemt pašam\n");orderText.append("\nKopā: ").append(Math.round(total * 100.0) / 100.0).append("€");
+		    		JOptionPane.showMessageDialog(null, orderText.toString(),"Pirkuma kopsavilkums", JOptionPane.INFORMATION_MESSAGE);
+		    		try (FileWriter writer = new FileWriter("dati.txt", true)) {
+		    			writer.write(orderText.toString());
+		    			writer.write("\n----------------------------\n");
+		    		} catch (IOException ex) {
+		    			ex.printStackTrace();
+		    			JOptionPane.showMessageDialog(null, "Kļūda saglabājot failu!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+		    }
 		    }
 
-		    
+		    cart.clear();
 			});
 
 		btnNewButton_4_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
@@ -757,11 +767,22 @@ public class piceriainterface extends JFrame {
 		
 		JButton btnNewButton_4_1_1_1_1_1_1 = new JButton("Pasūtijimu vēsture");
 		btnNewButton_4_1_1_1_1_1_1.addActionListener(e -> {
-			
+			try {
+				FileReader fr = new FileReader("dati.txt");
+				BufferedReader br = new BufferedReader(fr);
+				String nolasitais = "", teksts;
+				while((teksts =br.readLine())!=null) {
+					nolasitais += teksts+"\n";
+				}
+				br.close();
+				JOptionPane.showMessageDialog(null, nolasitais);
+			}catch(IOException e1) {
+				JOptionPane.showMessageDialog(null, "Radas kļudqa nolasot failu!");
+			}
 		});	
 		btnNewButton_4_1_1_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
 		btnNewButton_4_1_1_1_1_1_1.setBackground(Color.WHITE);
-		btnNewButton_4_1_1_1_1_1_1.setBounds(603, 0, 139, 23);
+		btnNewButton_4_1_1_1_1_1_1.setBounds(592, 0, 150, 23);
 		panel_1.add(btnNewButton_4_1_1_1_1_1_1);
 		btnNewButton_4.addActionListener(e -> {
 			cardLayout.show(contentPane, "menu");
@@ -975,6 +996,7 @@ public class piceriainterface extends JFrame {
 			    if (choice == JOptionPane.CLOSED_OPTION) return;
 
 			    boolean isDelivery = (choice == 1);
+			    boolean noDelivery = (choice == 0);
 			    double total = 0;
 			    StringBuilder orderText = new StringBuilder("Pasūtījums:\n");
 
@@ -1006,12 +1028,20 @@ public class piceriainterface extends JFrame {
 				        ex.printStackTrace();
 				        JOptionPane.showMessageDialog(null, "Kļūda saglabājot failu!", "Kļūda", JOptionPane.ERROR_MESSAGE);
 				    }
-
-				    cart.clear();
 					
-			    } else {
-			        orderText.append("Paņemt pašam\n");
+			    	}else if(noDelivery){
+			    		orderText.append("Paņemt pašam\n");orderText.append("\nKopā: ").append(Math.round(total * 100.0) / 100.0).append("€");
+			    		JOptionPane.showMessageDialog(null, orderText.toString(),"Pirkuma kopsavilkums", JOptionPane.INFORMATION_MESSAGE);
+			    		try (FileWriter writer = new FileWriter("dati.txt", true)) {
+			    			writer.write(orderText.toString());
+			    			writer.write("\n----------------------------\n");
+			    		} catch (IOException ex) {
+			    			ex.printStackTrace();
+			    			JOptionPane.showMessageDialog(null, "Kļūda saglabājot failu!", "Kļūda", JOptionPane.ERROR_MESSAGE);
 			    }
+			    }
+
+			    cart.clear();
 				});
 			btnNewButton_4_1_1_1_1_2.setFont(new Font("Arial", Font.BOLD, 12));
 			btnNewButton_4_1_1_1_1_2.setBackground(Color.WHITE);
@@ -1049,9 +1079,23 @@ public class piceriainterface extends JFrame {
 			panel_4.add(btnNewButton_4_1_1_1_1_1_2);
 			
 			JButton btnNewButton_4_1_1_1_1_1_1_1 = new JButton("Pasūtijimu vēsture");
+			btnNewButton_4_1_1_1_1_1_1_1.addActionListener(e -> {
+				try {
+					FileReader fr = new FileReader("dati.txt");
+					BufferedReader br = new BufferedReader(fr);
+					String nolasitais = "", teksts;
+					while((teksts =br.readLine())!=null) {
+						nolasitais += teksts+"\n";
+					}
+					br.close();
+					JOptionPane.showMessageDialog(null, nolasitais);
+				}catch(IOException e1) {
+					JOptionPane.showMessageDialog(null, "Radas kļudqa nolasot failu!");
+				}
+			});
 			btnNewButton_4_1_1_1_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
 			btnNewButton_4_1_1_1_1_1_1_1.setBackground(Color.WHITE);
-			btnNewButton_4_1_1_1_1_1_1_1.setBounds(603, 0, 139, 23);
+			btnNewButton_4_1_1_1_1_1_1_1.setBounds(592, 0, 150, 23);
 			panel_4.add(btnNewButton_4_1_1_1_1_1_1_1);
 	}
 }
