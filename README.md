@@ -49,13 +49,18 @@ Add-ons for Firefox (en-US)
 
 - Veidot un pasūtījumus
 
-![image](https://github.com/user-attachments/assets/fdf8cc1e-6ec0-4d4e-b2ea-055243cfc1d4)
+- Ar piegāde:
+![image](https://github.com/user-attachments/assets/a90ec3ea-d95e-4ae0-81ec-2e5a9be03e84)
+
+- Paņemt pašam:
+
+![image](https://github.com/user-attachments/assets/124a2a86-94f6-4178-bcc6-504be38b1297)
 
 - Glabāt informāciju par klientiem un pasūtījumiem failos
 
-![image](https://github.com/user-attachments/assets/e8d77205-0e88-48d7-8552-b193bc68f265)
+![image](https://github.com/user-attachments/assets/490480dc-cbd5-4a3c-93aa-3ba7c0c4fbf3)
 
-![image](https://github.com/user-attachments/assets/da8dee1d-076d-4852-9061-cef28c033f8a)
+![image](https://github.com/user-attachments/assets/64613765-8d39-40cb-87b0-187acd915b78)
 
 - Lietot grafisko saskarni, lai vienkārši strādātu ar sistēmu
 ![image](https://github.com/user-attachments/assets/0ea66007-88b7-407f-b08a-79f6e81582ad)
