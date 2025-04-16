@@ -1,32 +1,26 @@
 import java.util.List;
 
-import javax.swing.JOptionPane;	
+import javax.swing.JOptionPane;
 
-public class pica {
-	private List<String> toppings;
-	private String tips;
-	private int size;
-	private double cena;
-	
-	  public pica(String tips, int size, double cena, List<String> toppings) {
-	        this.tips = tips;
-	        this.size = size;
-	        this.cena = cena;
-	        this.toppings = toppings;
-	    }
-	  
-	  public String getTips() {return tips;}
-	  public int getSize() {return size;}
-	  public double getCena() {return cena;}
-	  public List<String> getToppings() {return toppings;}
-	  
-	  public void showInfo() {
-	        String message = "Picas tips: " + tips +
-	                         "\nLielums: " + size + " см" +
-	                         "\nPapildinājumi: " + toppings +
-	                         "\nCena: " + cena + " EUR";
-	        
-	        JOptionPane.showMessageDialog(null, message, "Informācija par picu", JOptionPane.INFORMATION_MESSAGE);
-	    }
-	    
+public class pica extends Prece {
+    private int size;
+    private List<String> toppings;
+
+    public pica(String name, int size, double price, List<String> toppings) {
+        super(name + " " + size + "cm", price);
+        this.size = size;
+        this.toppings = toppings;
+    }
+
+    public void showInfo() {
+        StringBuilder info = new StringBuilder(getNosaukums() + "\nCena: " + getCena() + "€\n");
+        if (!toppings.isEmpty()) {
+            info.append("Papildinājumi:\n");
+            for (String t : toppings) {
+                info.append("• ").append(t).append("\n");
+            }
+        }
+        JOptionPane.showMessageDialog(null, info.toString(), "Pica pievienota", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
 }

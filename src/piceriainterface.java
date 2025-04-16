@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,7 +26,7 @@ import java.awt.event.ActionEvent;
 public class piceriainterface extends JFrame {
 	
 	klientsloginreg klientsloginreg = new klientsloginreg();
-	List<pica> cart = new ArrayList<>();
+	ArrayList<Prece> cart = new ArrayList<>();
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -325,6 +326,7 @@ public class piceriainterface extends JFrame {
 		        toppings.add("Papildus mocarella");
 		        cena += 1.0;
 		    }
+		    cena = Math.round(cena * 100.0) / 100.0;
 		    pica margarita = new pica("Margarita", size, cena, toppings);
 		    cart.add(margarita);
 		    margarita.showInfo();
@@ -376,8 +378,7 @@ public class piceriainterface extends JFrame {
 		        cena += 1.0;
 		    }
 		    
-		    double scale = Math.pow(10, 2);
-		    cena = Math.round(cena * scale) / scale;
+		    cena = Math.round(cena * 100.0) / 100.0;
 
 		    pica bbq = new pica("Bbq", size, cena, toppings);
 		    cart.add(bbq);
@@ -428,6 +429,7 @@ public class piceriainterface extends JFrame {
 		        cena += 1.0;
 		    }
 
+		    cena = Math.round(cena * 100.0) / 100.0;
 		    pica pepperoni = new pica("Pepperoni", size, cena, toppings);
 		    cart.add(pepperoni);
 		    pepperoni.showInfo();
@@ -506,6 +508,7 @@ public class piceriainterface extends JFrame {
 		        cena += 1.0;
 		    }
 
+		    cena = Math.round(cena * 100.0) / 100.0;
 		    pica fourCheese = new pica("Četri sieri", size, cena, toppings);
 		    cart.add(fourCheese);
 		    fourCheese.showInfo();
@@ -551,6 +554,7 @@ public class piceriainterface extends JFrame {
 		        cena += 1.0;
 		    }
 
+		    cena = Math.round(cena * 100.0) / 100.0;
 		    pica diavola = new pica("Diavola", size, cena, toppings);
 		    cart.add(diavola);
 		    diavola.showInfo();
@@ -601,6 +605,7 @@ public class piceriainterface extends JFrame {
 		        cena += 1.0;
 		    }
 
+		    cena = Math.round(cena * 100.0) / 100.0;
 		    pica mushroom = new pica("Sēņu", size, cena, toppings);
 		    cart.add(mushroom);
 		    mushroom.showInfo();
@@ -635,22 +640,23 @@ public class piceriainterface extends JFrame {
 		JButton btnNewButton_4_1_1_1 = new JButton("Skatīt grozu");
 		btnNewButton_4_1_1_1.addActionListener(e -> {
 		    if (cart.isEmpty()) {
-		        JOptionPane.showMessageDialog(null, "Grozs ir tukšs.");
+		        JOptionPane.showMessageDialog(null, "Grozs ir tukšs!", "Grozs", JOptionPane.INFORMATION_MESSAGE);
 		        return;
 		    }
 
-		    StringBuilder message = new StringBuilder("Tavs grozs:\n\n");
-		    int i = 1;
-		    for (pica p : cart) {
-		        message.append(i++).append(". ")
-		               .append(p.getTips()).append(" - ")
-		               .append(p.getSize()).append("cm - ")
-		               .append(p.getCena()).append(" EUR\n")
-		               .append("Papildinājumi: ").append(p.getToppings()).append("\n\n");
+		    StringBuilder sb = new StringBuilder("Tavs grozs:\n");
+		    double total = 0;
+
+		    for (Prece prece : cart) {
+		        sb.append("• ").append(prece.toString()).append("\n");
+		        total += prece.getCena();
 		    }
 
-		    JOptionPane.showMessageDialog(null, message.toString(), "Grozs", JOptionPane.INFORMATION_MESSAGE);
+		    sb.append("\nKopā: ").append(Math.round(total * 100.0) / 100.0).append("€");
+
+		    JOptionPane.showMessageDialog(null, sb.toString(), "Grozs", JOptionPane.INFORMATION_MESSAGE);
 		});
+
 
 		btnNewButton_4_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
 		btnNewButton_4_1_1_1.setBackground(Color.WHITE);
@@ -659,93 +665,104 @@ public class piceriainterface extends JFrame {
 		
 		JButton btnNewButton_4_1_1_1_1 = new JButton("Pasūtīt");
 		btnNewButton_4_1_1_1_1.addActionListener(e -> {
-			    if (cart.isEmpty()) {
-			        JOptionPane.showMessageDialog(null, "Grozs ir tukšs!");
-			        return;
+			if (cart.isEmpty()) {
+		        JOptionPane.showMessageDialog(null, "Grozs ir tukšs!", "Pirkums", JOptionPane.WARNING_MESSAGE);
+		        return;
+		    }
+
+		    Object[] options = {"Paņemt pašam", "Piegāde (+3€)"};
+		    int choice = JOptionPane.showOptionDialog(null,
+		            "Kā vēlies saņemt pasūtījumu?", "Saņemšanas veids",
+		            JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+		            null, options, options[0]);
+
+		    if (choice == JOptionPane.CLOSED_OPTION) return;
+
+		    boolean isDelivery = (choice == 1);
+		    double total = 0;
+		    StringBuilder orderText = new StringBuilder("Pasūtījums:\n");
+
+		    for (Prece prece : cart) {
+		        orderText.append("• ").append(prece.toString()).append("\n");
+		        total += prece.getCena();
+		    }
+
+		    if (isDelivery) {
+		    	
+		    	String adrese = JOptionPane.showInputDialog("Ievadi piegādes adrese");
+			    String telnumurs = "";
+				do {
+					telnumurs = JOptionPane.showInputDialog("Ievadi telefonu numuru");
+				}while(!Pattern.matches("^[2-9]{1}[0-9]{7}$",telnumurs));
+		    	
+		        orderText.append("Piegāde: +3.00€\n");
+		        total += 3.00;
+				
+				orderText.append("\nKopā: ").append(Math.round(total * 100.0) / 100.0).append("€");
+
+			    JOptionPane.showMessageDialog(null, orderText.toString()+"\nPiegādes adrese: "+adrese+"\nKlienta telnumurs adrese: "+telnumurs,"Pirkuma kopsavilkums", JOptionPane.INFORMATION_MESSAGE);
+			    try (FileWriter writer = new FileWriter("dati.txt", true)) {
+			        writer.write(orderText.toString());
+			        writer.write("\nKlienta piegādes adrese: "+adrese);
+			        writer.write("\nKlienta telnumurs adrese: "+telnumurs);
+			        writer.write("\n----------------------------\n");
+			    } catch (IOException ex) {
+			        ex.printStackTrace();
+			        JOptionPane.showMessageDialog(null, "Kļūda saglabājot failu!", "Kļūda", JOptionPane.ERROR_MESSAGE);
 			    }
 
-			    double total = 0;
-			    for (pica p : cart) {
-			        total += p.getCena();
-			    }
+			    cart.clear();
+				
+		    } else {
+		        orderText.append("Paņemt pašam\n");
+		    }
 
-			    String[] darbibas = {"Paņemt pašam", "Piegāde (+3€)"};
-			    int izvele = JOptionPane.showOptionDialog(null,
-			            "Izvēlies saņemšanas veidu:",
-			            "Piegāde vai paņemšana",
-			            JOptionPane.DEFAULT_OPTION,
-			            JOptionPane.QUESTION_MESSAGE,
-			            null,
-			            darbibas,
-			            darbibas[0]);
-
-			    String sanemsana = "";
-			    if (izvele == 1) {
-			        total += 3.00;
-			        sanemsana = "Piegāde";
-			    } else if (izvele == 0) {
-			        sanemsana = "Paņemt pašam";
-			    } else {
-			        return;
-			    }
-
-			    int confirm = JOptionPane.showConfirmDialog(null, "Kopējā summa: " + total + " EUR\nVai vēlies pasūtīt?", "Pasūtījums", JOptionPane.YES_NO_OPTION);
-			    if (confirm == JOptionPane.YES_OPTION) {
-			        try (FileWriter writer = new FileWriter("dati.txt", true)) {
-			            writer.write("=== JAUNS PASŪTĪJUMS ===\n");
-			            writer.write("Saņemšana: " + sanemsana + "\n");
-			            for (pica p : cart) {
-			                writer.write("Pica: " + p.getTips() + "\n");
-			                writer.write("Izmērs: " + p.getSize() + " cm\n");
-			                writer.write("Papildinājumi: " + p.getToppings() + "\n");
-			                writer.write("Cena: " + p.getCena() + " EUR\n\n");
-			            }
-			            writer.write("Kopā ar piegādi: " + total + " EUR\n");
-			            writer.write("========================\n\n");
-			        } catch (IOException ex) {
-			            JOptionPane.showMessageDialog(null, "Kļūda saglabājot pasūtījumu!", "Kļūda", JOptionPane.ERROR_MESSAGE);
-			        }
-
-			        cart.clear();
-			        JOptionPane.showMessageDialog(null, "Paldies par pasūtījumu! 🍕");
-			    }
+		    
 			});
 
 		btnNewButton_4_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
 		btnNewButton_4_1_1_1_1.setBackground(Color.WHITE);
-		btnNewButton_4_1_1_1_1.setBounds(1007, 35, 116, 23);
+		btnNewButton_4_1_1_1_1.setBounds(880, 0, 116, 23);
 		panel_1.add(btnNewButton_4_1_1_1_1);
 		
-		JButton btnNewButton_4_1_1_1_1_1 = new JButton("Noņemt picu");
+		JButton btnNewButton_4_1_1_1_1_1 = new JButton("Noņemt prece");
 		btnNewButton_4_1_1_1_1_1.addActionListener(e -> {
-		    if (cart.isEmpty()) {
-		        JOptionPane.showMessageDialog(null, "Grozs jau ir tukšs!");
-		        return;
-		    }
+			 if (cart.isEmpty()) {
+			        JOptionPane.showMessageDialog(null, "Grozs ir tukšs!", "Noņemt preci", JOptionPane.WARNING_MESSAGE);
+			        return;
+			 }
+			    String[] itemNames = new String[cart.size()];
+			    for (int i = 0; i < cart.size(); i++) {
+			        itemNames[i] = cart.get(i).toString();
+			    }
+			    
+			    String itemToRemove = (String) JOptionPane.showInputDialog(null,
+			            "Izvēlies preci, kuru noņemt:", "Noņemt preci",
+			            JOptionPane.QUESTION_MESSAGE, null, itemNames, itemNames[0]);
 
-		    StringBuilder list = new StringBuilder();
-		    for (int i = 0; i < cart.size(); i++) {
-		        list.append(i + 1).append(". ").append(cart.get(i).getTips()).append(" - ")
-		            .append(cart.get(i).getCena()).append(" EUR\n");
-		    }
-
-		    String input = JOptionPane.showInputDialog(null, "Izvēlies picu, kuru noņemt (ievadi numuru):\n" + list);
-		    try {
-		        int index = Integer.parseInt(input) - 1;
-		        if (index >= 0 && index < cart.size()) {
-		            cart.remove(index);
-		            JOptionPane.showMessageDialog(null, "Pica tika noņemta no groza.");
-		        } else {
-		            JOptionPane.showMessageDialog(null, "Nederīgs numurs!");
-		        }
-		    } catch (Exception ex) {
-		        JOptionPane.showMessageDialog(null, "Ievadi derīgu skaitli!", "Kļūda", JOptionPane.ERROR_MESSAGE);
-		    }
+			    if (itemToRemove != null) {
+			        for (int i = 0; i < cart.size(); i++) {
+			            if (cart.get(i).toString().equals(itemToRemove)) {
+			            	cart.remove(i);
+			                JOptionPane.showMessageDialog(null, "Prece veiksmīgi noņemta no groza.", "Noņemts", JOptionPane.INFORMATION_MESSAGE);
+			                break;
+			            }
+			        }
+			    }
 		});
 		btnNewButton_4_1_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
 		btnNewButton_4_1_1_1_1_1.setBackground(Color.WHITE);
-		btnNewButton_4_1_1_1_1_1.setBounds(1007, 67, 116, 23);
+		btnNewButton_4_1_1_1_1_1.setBounds(753, 0, 116, 23);
 		panel_1.add(btnNewButton_4_1_1_1_1_1);
+		
+		JButton btnNewButton_4_1_1_1_1_1_1 = new JButton("Pasūtijimu vēsture");
+		btnNewButton_4_1_1_1_1_1_1.addActionListener(e -> {
+			
+		});	
+		btnNewButton_4_1_1_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_4_1_1_1_1_1_1.setBackground(Color.WHITE);
+		btnNewButton_4_1_1_1_1_1_1.setBounds(603, 0, 139, 23);
+		panel_1.add(btnNewButton_4_1_1_1_1_1_1);
 		btnNewButton_4.addActionListener(e -> {
 			cardLayout.show(contentPane, "menu");
 		});		
@@ -770,6 +787,10 @@ public class piceriainterface extends JFrame {
 			panel_4.add(lblNewLabel_1_3);
 			
 			JButton btnNewButton_5 = new JButton("Pievienot");
+			btnNewButton_5.addActionListener(e -> {
+			    cart.add(new Prece("Ūdens 0.5L", 1.50));
+			    JOptionPane.showMessageDialog(null, "Ūdens pievienots grozam!");
+			});
 			btnNewButton_5.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnNewButton_5.setBackground(Color.WHITE);
 			btnNewButton_5.setBounds(193, 125, 89, 23);
@@ -781,6 +802,11 @@ public class piceriainterface extends JFrame {
 			panel_4.add(lblNewLabel_2_1_3);
 			
 			JButton btnNewButton_1_3 = new JButton("Pievienot");
+			btnNewButton_1_3.addActionListener(e -> {
+			    cart.add(new Prece("Sprite 0.5L", 2.50));
+			    JOptionPane.showMessageDialog(null, "Sprite pievienots grozam!");
+			});
+			
 			btnNewButton_1_3.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnNewButton_1_3.setBackground(Color.WHITE);
 			btnNewButton_1_3.setBounds(193, 325, 89, 23);
@@ -797,6 +823,11 @@ public class piceriainterface extends JFrame {
 			panel_4.add(lblNewLabel_2_1_1_2);
 			
 			JButton btnNewButton_1_1_2 = new JButton("Pievienot");
+			btnNewButton_1_1_2.addActionListener(e -> {
+			    cart.add(new Prece("Fanta 0.5L", 2.50));
+			    JOptionPane.showMessageDialog(null, "Fanta pievienots grozam!");
+			});
+			
 			btnNewButton_1_1_2.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnNewButton_1_1_2.setBackground(Color.WHITE);
 			btnNewButton_1_1_2.setBounds(190, 525, 89, 23);
@@ -833,6 +864,11 @@ public class piceriainterface extends JFrame {
 			panel_4.add(lblNewLabel_1_2_1);
 			
 			JButton btnNewButton_2_1 = new JButton("Pievienot");
+			btnNewButton_2_1.addActionListener(e -> {
+			    cart.add(new Prece("Coca Cola 0.5L", 2.50));
+			    JOptionPane.showMessageDialog(null, "Coca Cola pievienots grozam!");
+			});
+			
 			btnNewButton_2_1.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnNewButton_2_1.setBackground(Color.WHITE);
 			btnNewButton_2_1.setBounds(729, 125, 89, 23);
@@ -844,6 +880,11 @@ public class piceriainterface extends JFrame {
 			panel_4.add(lblNewLabel_2_1_2_1);
 			
 			JButton btnNewButton_1_2_1 = new JButton("Pievienot");
+			btnNewButton_1_2_1.addActionListener(e -> {
+			    cart.add(new Prece("Coca Cola Zero 0.5L", 2.50));
+			    JOptionPane.showMessageDialog(null, "Coca Cola Zero pievienots grozam!");
+			});
+			
 			btnNewButton_1_2_1.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnNewButton_1_2_1.setBackground(Color.WHITE);
 			btnNewButton_1_2_1.setBounds(729, 325, 89, 23);
@@ -860,6 +901,11 @@ public class piceriainterface extends JFrame {
 			panel_4.add(lblNewLabel_2_1_1_1_1);
 			
 			JButton btnNewButton_1_1_1_1 = new JButton("Pievienot");
+			btnNewButton_1_1_1_1.addActionListener(e -> {
+			    cart.add(new Prece("Alus 0.5L", 4.50));
+			    JOptionPane.showMessageDialog(null, "Alus pievienots grozam!");
+			});
+			
 			btnNewButton_1_1_1_1.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnNewButton_1_1_1_1.setBackground(Color.WHITE);
 			btnNewButton_1_1_1_1.setBounds(729, 525, 89, 23);
@@ -889,13 +935,123 @@ public class piceriainterface extends JFrame {
 			btnNewButton_4_1.setBounds(0, 0, 89, 23);
 			panel_4.add(btnNewButton_4_1);
 			
-			JButton btnNewButton_4_1_1 = new JButton("Skatīt grozu");
-			btnNewButton_4_1_1.setFont(new Font("Arial", Font.BOLD, 12));
-			btnNewButton_4_1_1.setBackground(Color.WHITE);
-			btnNewButton_4_1_1.setBounds(1007, 0, 116, 23);
-			panel_4.add(btnNewButton_4_1_1);
-			btnNewButton_4_1_1.addActionListener(e -> {
-				cardLayout.show(contentPane, "groza");
+			JButton btnNewButton_4_1_1_1_2 = new JButton("Skatīt grozu");
+			btnNewButton_4_1_1_1_2.addActionListener(e -> {
+			    if (cart.isEmpty()) {
+			        JOptionPane.showMessageDialog(null, "Grozs ir tukšs!", "Grozs", JOptionPane.INFORMATION_MESSAGE);
+			        return;
+			    }
+
+			    StringBuilder sb = new StringBuilder("Tavs grozs:\n");
+			    double total = 0;
+
+			    for (Prece prece : cart) {
+			        sb.append("• ").append(prece.toString()).append("\n");
+			        total += prece.getCena();
+			    }
+
+			    sb.append("\nKopā: ").append(Math.round(total * 100.0) / 100.0).append("€");
+
+			    JOptionPane.showMessageDialog(null, sb.toString(), "Grozs", JOptionPane.INFORMATION_MESSAGE);
 			});
+			btnNewButton_4_1_1_1_2.setFont(new Font("Arial", Font.BOLD, 12));
+			btnNewButton_4_1_1_1_2.setBackground(Color.WHITE);
+			btnNewButton_4_1_1_1_2.setBounds(1007, 0, 116, 23);
+			panel_4.add(btnNewButton_4_1_1_1_2);
+			
+			JButton btnNewButton_4_1_1_1_1_2 = new JButton("Pasūtīt");
+			btnNewButton_4_1_1_1_1_2.addActionListener(e -> {
+				if (cart.isEmpty()) {
+			        JOptionPane.showMessageDialog(null, "Grozs ir tukšs!", "Pirkums", JOptionPane.WARNING_MESSAGE);
+			        return;
+			    }
+
+			    Object[] options = {"Paņemt pašam", "Piegāde (+3€)"};
+			    int choice = JOptionPane.showOptionDialog(null,
+			            "Kā vēlies saņemt pasūtījumu?", "Saņemšanas veids",
+			            JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+			            null, options, options[0]);
+
+			    if (choice == JOptionPane.CLOSED_OPTION) return;
+
+			    boolean isDelivery = (choice == 1);
+			    double total = 0;
+			    StringBuilder orderText = new StringBuilder("Pasūtījums:\n");
+
+			    for (Prece prece : cart) {
+			        orderText.append("• ").append(prece.toString()).append("\n");
+			        total += prece.getCena();
+			    }
+
+			    if (isDelivery) {
+			    	
+			    	String adrese = JOptionPane.showInputDialog("Ievadi piegādes adrese");
+				    String telnumurs = "";
+					do {
+						telnumurs = JOptionPane.showInputDialog("Ievadi telefonu numuru");
+					}while(!Pattern.matches("^[2-9]{1}[0-9]{7}$",telnumurs));
+			    	
+			        orderText.append("Piegāde: +3.00€\n");
+			        total += 3.00;
+					
+					orderText.append("\nKopā: ").append(Math.round(total * 100.0) / 100.0).append("€");
+
+				    JOptionPane.showMessageDialog(null, orderText.toString()+"\nPiegādes adrese: "+adrese+"\nKlienta telnumurs adrese: "+telnumurs,"Pirkuma kopsavilkums", JOptionPane.INFORMATION_MESSAGE);
+				    try (FileWriter writer = new FileWriter("dati.txt", true)) {
+				        writer.write(orderText.toString());
+				        writer.write("\nKlienta piegādes adrese: "+adrese);
+				        writer.write("\nKlienta telnumurs adrese: "+telnumurs);
+				        writer.write("\n----------------------------\n");
+				    } catch (IOException ex) {
+				        ex.printStackTrace();
+				        JOptionPane.showMessageDialog(null, "Kļūda saglabājot failu!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+				    }
+
+				    cart.clear();
+					
+			    } else {
+			        orderText.append("Paņemt pašam\n");
+			    }
+				});
+			btnNewButton_4_1_1_1_1_2.setFont(new Font("Arial", Font.BOLD, 12));
+			btnNewButton_4_1_1_1_1_2.setBackground(Color.WHITE);
+			btnNewButton_4_1_1_1_1_2.setBounds(880, 0, 116, 23);
+			panel_4.add(btnNewButton_4_1_1_1_1_2);
+			
+			JButton btnNewButton_4_1_1_1_1_1_2 = new JButton("Noņemt prece");
+			btnNewButton_4_1_1_1_1_1_2.addActionListener(e -> {
+				 if (cart.isEmpty()) {
+				        JOptionPane.showMessageDialog(null, "Grozs ir tukšs!", "Noņemt preci", JOptionPane.WARNING_MESSAGE);
+				        return;
+				 }
+				    String[] itemNames = new String[cart.size()];
+				    for (int i = 0; i < cart.size(); i++) {
+				        itemNames[i] = cart.get(i).toString();
+				    }
+				    
+				    String itemToRemove = (String) JOptionPane.showInputDialog(null,
+				            "Izvēlies preci, kuru noņemt:", "Noņemt preci",
+				            JOptionPane.QUESTION_MESSAGE, null, itemNames, itemNames[0]);
+
+				    if (itemToRemove != null) {
+				        for (int i = 0; i < cart.size(); i++) {
+				            if (cart.get(i).toString().equals(itemToRemove)) {
+				            	cart.remove(i);
+				                JOptionPane.showMessageDialog(null, "Prece veiksmīgi noņemta no groza.", "Noņemts", JOptionPane.INFORMATION_MESSAGE);
+				                break;
+				            }
+				        }
+				    }
+			});
+			btnNewButton_4_1_1_1_1_1_2.setFont(new Font("Arial", Font.BOLD, 12));
+			btnNewButton_4_1_1_1_1_1_2.setBackground(Color.WHITE);
+			btnNewButton_4_1_1_1_1_1_2.setBounds(753, 0, 116, 23);
+			panel_4.add(btnNewButton_4_1_1_1_1_1_2);
+			
+			JButton btnNewButton_4_1_1_1_1_1_1_1 = new JButton("Pasūtijimu vēsture");
+			btnNewButton_4_1_1_1_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
+			btnNewButton_4_1_1_1_1_1_1_1.setBackground(Color.WHITE);
+			btnNewButton_4_1_1_1_1_1_1_1.setBounds(603, 0, 139, 23);
+			panel_4.add(btnNewButton_4_1_1_1_1_1_1_1);
 	}
 }
